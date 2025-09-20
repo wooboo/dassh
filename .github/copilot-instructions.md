@@ -33,6 +33,7 @@
 ### Technology Stack (NON-NEGOTIABLE)
 - **Frontend**: Next.js (App Router preferred)
 - **Components**: shadcn/ui components only
+- **API Communication**: tRPC for type-safe backend communication
 - **Database**: PostgreSQL with Drizzle ORM
 - **Authentication**: Kinde service integration
 - **Package Manager**: pnpm (never npm or yarn)
@@ -73,6 +74,42 @@ import { users, userProfiles } from "@/lib/database/schema";
 // Component patterns
 import { Button } from "@/components/ui/button";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
+```
+
+### tRPC API Development Pattern
+```typescript
+// Server-side tRPC router
+import { z } from "zod";
+import { router, publicProcedure, protectedProcedure } from "@/lib/trpc";
+
+export const userRouter = router({
+  getUser: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ input, ctx }) => {
+      return await ctx.db.query.users.findFirst({
+        where: eq(users.id, input.id)
+      });
+    }),
+  
+  createUser: protectedProcedure
+    .input(z.object({ 
+      name: z.string().min(1),
+      email: z.string().email()
+    }))
+    .mutation(async ({ input, ctx }) => {
+      return await ctx.db.insert(users).values(input);
+    })
+});
+
+// Client-side tRPC usage
+import { trpc } from "@/lib/trpc";
+
+function UserProfile({ userId }: { userId: string }) {
+  const { data: user, isLoading } = trpc.user.getUser.useQuery({ id: userId });
+  const createUserMutation = trpc.user.createUser.useMutation();
+  
+  // Full type safety and autocomplete available
+}
 ```
 
 ### Route Protection Pattern
@@ -131,6 +168,7 @@ apps/
 packages/
 ├── shared/
 │   ├── auth/          # Kinde integration utilities
+│   ├── api/           # tRPC routers and procedures
 │   ├── database/      # User schema and queries
 │   └── validation/    # Auth form validation
 ├── ui/                # Shared shadcn/ui components
@@ -144,6 +182,7 @@ packages/
 - `UserAvatar` - User profile picture component
 
 ## Recent Changes
+- **2025-01-27**: Constitution updated to v2.6.0 - Added tRPC requirement for type-safe API communication
 - **2025-09-20**: User authentication system planning completed
 - **Feature Spec**: Created comprehensive authentication requirements (FR-001 to FR-013)
 - **Data Model**: Designed PostgreSQL schema with Users, UserSessions, UserProfiles
@@ -164,6 +203,6 @@ packages/
 - **Performance**: Use React DevTools and network monitoring for optimization
 
 ---
-**Last Updated**: September 20, 2025  
-**Constitution Version**: 2.5.0  
+**Last Updated**: January 27, 2025  
+**Constitution Version**: 2.6.0  
 **Active Branch**: 002-user-authentication-i

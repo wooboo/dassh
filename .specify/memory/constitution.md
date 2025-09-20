@@ -1,28 +1,27 @@
 <!--
-SYNC IMPACT REPORT - Constitution Amendment v2.5.0
+SYNC IMPACT REPORT - Constitution Amendment v2.6.0
 
-VERSION CHANGE: 2.4.0 → 2.5.0 (MINOR version bump)
-RATIONALE: Added rapid development capabilities with v0 for UI prototyping - expanded development workflow without breaking existing principles
+VERSION CHANGE: 2.5.0 → 2.6.0 (MINOR version bump)
+RATIONALE: Added tRPC requirement for type-safe backend communication - expanded technical stack requirements without breaking existing principles
 
 MODIFIED PRINCIPLES:
 - No core principles changed
 
 ADDED SECTIONS:
-- Rapid Development Tools in Platform Requirements:
-  * v0 (permitted for initial UI prototyping and component generation)
-  * AI-assisted development workflow integration
-  * Prototyping to production transition requirements
-- Enhanced Development Standards (rapid prototyping workflow standards)
-- UI Development Standards (v0 integration and quality assurance)
+- tRPC in Technology Stack Requirements:
+  * Type-safe API communication between frontend and backend
+  * Shared TypeScript types across full stack
+  * Improved developer experience with autocomplete and type validation
+- Enhanced Development Standards (tRPC integration patterns)
+- API Development Standards (tRPC router organization and type safety)
 
 REMOVED SECTIONS:
 - None
 
 TEMPLATES REQUIRING UPDATES:
-✅ plan-template.md - Updated technical context with v0 prototyping and compliance requirements
-✅ tasks-template.md - Added v0 setup, component generation, and validation tasks
-✅ spec-template.md - Added rapid development considerations section
-✅ PowerShell script - Already supports workspace structure
+✅ plan-template.md - Updated technical context with tRPC requirement
+✅ tasks-template.md - Added tRPC setup and router creation tasks
+✅ .github/copilot-instructions.md - Added tRPC development patterns and examples
 
 FOLLOW-UP TODOS:
 - None - all template synchronization complete
@@ -61,6 +60,7 @@ The application must be visually appealing and maintain consistent design langua
 **Technology Stack Requirements**: 
 - **Frontend Framework**: Next.js MUST be used for the frontend application, providing server-side rendering, routing, and optimization capabilities
 - **Component Library**: shadcn/ui MUST be used for consistent, accessible UI components that align with design system requirements
+- **API Communication**: tRPC MUST be used for type-safe communication between frontend and backend, providing end-to-end TypeScript type safety, auto-completion, and runtime validation
 - **Rapid Development**: v0 MAY be used for initial UI prototyping and component generation to accelerate development, but all generated code must be reviewed and refined to meet constitutional standards
 - **Real-time Communication**: WebSocket connections MUST be implemented for real-time widget updates and dashboard synchronization
 - **Authentication**: Kinde MUST be used as the authentication framework, providing secure user management, session handling, and integration with widget security requirements
@@ -75,7 +75,7 @@ The application must be visually appealing and maintain consistent design langua
 
 **Rapid Development Standards**: v0 MAY be used for initial UI component prototyping to accelerate development cycles. All v0-generated code MUST be reviewed for accessibility compliance, security standards, and performance optimization before integration. Generated components must be refactored to align with shadcn/ui standards and widget architecture requirements. AI-generated code must undergo the same quality gates as manually written code.
 
-**Integration Requirements**: Each widget must expose RESTful webhook endpoints following OpenAPI 3.0 specification. External systems must be able to update widget state through standardized JSON payloads using placeholder-based template mapping. Widget templates must support real-time data binding with validation and type safety. Widget-to-widget communication must use event-driven patterns. All real-time updates must flow through WebSocket channels with proper authentication via Kinde tokens.
+**Integration Requirements**: Each widget must expose RESTful webhook endpoints following OpenAPI 3.0 specification. Widget-to-backend communication MUST use tRPC routers for type-safe API calls with shared TypeScript types. External systems must be able to update widget state through standardized JSON payloads using placeholder-based template mapping. Widget templates must support real-time data binding with validation and type safety. Widget-to-widget communication must use event-driven patterns. All real-time updates must flow through WebSocket channels with proper authentication via Kinde tokens. Backend API endpoints must be organized as tRPC routers with proper input validation, error handling, and type inference.
 
 ## Development Standards
 <!-- Quality gates and development workflow requirements -->
@@ -84,22 +84,24 @@ The application must be visually appealing and maintain consistent design langua
 
 **Package Management Standards**: All packages must be managed through pnpm workspaces with proper dependency hoisting and version consistency. Build artifacts must be cached using Turborepo's distributed caching system. Cross-package dependencies must be explicitly declared and version-pinned for stability.
 
+**API Development Standards**: All backend API endpoints MUST be implemented using tRPC routers for type-safe communication between frontend and backend. tRPC procedures must include proper input validation using Zod schemas, error handling with typed errors, and authentication middleware integration. API types must be shared between frontend and backend through tRPC's automatic type inference. All tRPC routers must be organized by feature domain with clear separation of concerns.
+
 **Database Development Standards**: All database schemas MUST be defined using Drizzle ORM schema definitions with TypeScript types. Database migrations must be version-controlled and tested before deployment. All database queries must use Drizzle's type-safe query builder. Database seeds and test data must be managed through dedicated migration files. Connection management must use environment-specific configuration with proper secret handling.
 
 **Rapid Prototyping Standards**: When using v0 for UI development, generated components MUST be treated as initial prototypes requiring refinement. All v0 output must be manually reviewed for constitutional compliance before integration. Components must be refactored to use proper shadcn/ui patterns, accessibility features, and responsive design principles. Generated code must be optimized for performance and security before production deployment.
 
-**Test-Driven Development**: All new widgets and features must follow TDD principles. Tests are written first, must fail initially, then implementation makes them pass. Widget contract tests, accessibility tests, responsive design tests, template validation tests, and database integration tests are mandatory. Database tests must use isolated test databases with proper cleanup. Widget templates must include test scenarios for webhook data mapping and placeholder resolution. Tests must be runnable at both package and workspace levels.
+**Test-Driven Development**: All new widgets and features must follow TDD principles. Tests are written first, must fail initially, then implementation makes them pass. Widget contract tests, accessibility tests, responsive design tests, template validation tests, tRPC API tests, and database integration tests are mandatory. Database tests must use isolated test databases with proper cleanup. Widget templates must include test scenarios for webhook data mapping and placeholder resolution. tRPC procedures must include type safety tests, input validation tests, and error handling tests. Tests must be runnable at both package and workspace levels.
 
-**Code Quality Gates**: All code must pass ESLint/TSLint checks, accessibility audits (axe-core), responsive design validation across device breakpoints, and security scanning. Widget APIs and template schemas must be documented with OpenAPI specifications. Database schemas must be validated for proper relationships, constraints, and indexing. Widget templates must be validated for security (no code injection), performance (efficient data mapping), and usability (clear placeholder syntax). AI-generated code from v0 must pass the same quality gates as manually written code with additional review for optimization and standards compliance. Monorepo builds must maintain sub-second change detection and efficient rebuilds.
+**Code Quality Gates**: All code must pass ESLint/TSLint checks, accessibility audits (axe-core), responsive design validation across device breakpoints, tRPC type safety validation, and security scanning. Widget APIs and template schemas must be documented with OpenAPI specifications. tRPC router schemas must be validated for proper input/output types and error handling. Database schemas must be validated for proper relationships, constraints, and indexing. Widget templates must be validated for security (no code injection), performance (efficient data mapping), and usability (clear placeholder syntax). AI-generated code from v0 must pass the same quality gates as manually written code with additional review for optimization and standards compliance. Monorepo builds must maintain sub-second change detection and efficient rebuilds.
 
-**Review Process**: Feature development requires accessibility review, security review, responsive design validation, widget template validation, database schema review, and AI-generated code review. All PRs must include test evidence for accessibility compliance, cross-device functionality, template security, and database integrity. Database changes must include migration scripts and rollback procedures. v0-generated components must be documented with refinement notes and constitutional compliance verification. Widget templates must be reviewed for placeholder syntax clarity, data mapping accuracy, and webhook integration safety. Monorepo changes must validate cross-package impact and maintain workspace integrity.
+**Review Process**: Feature development requires accessibility review, security review, responsive design validation, widget template validation, tRPC API design review, database schema review, and AI-generated code review. All PRs must include test evidence for accessibility compliance, cross-device functionality, template security, tRPC type safety, and database integrity. Database changes must include migration scripts and rollback procedures. v0-generated components must be documented with refinement notes and constitutional compliance verification. Widget templates must be reviewed for placeholder syntax clarity, data mapping accuracy, and webhook integration safety. tRPC routers must be reviewed for type safety, error handling completeness, and authentication integration. Monorepo changes must validate cross-package impact and maintain workspace integrity.
 
 ## Governance
 
 Constitution supersedes all other development practices and guidelines. Any deviation from these principles requires explicit justification, approval from project maintainers, and documentation of alternative approach. 
 
-**Amendment Process**: Constitutional changes require consensus among maintainers, must include impact assessment on existing widgets and features, and must maintain backward compatibility for widget APIs, template schemas, and database schemas unless superseded by security requirements.
+**Amendment Process**: Constitutional changes require consensus among maintainers, must include impact assessment on existing widgets and features, and must maintain backward compatibility for widget APIs, template schemas, tRPC router interfaces, and database schemas unless superseded by security requirements.
 
-**Compliance Verification**: All pull requests must verify compliance with accessibility standards, responsive design requirements, security guidelines, widget architecture principles, template system standards, database development standards, and rapid prototyping quality standards. Database changes must pass migration validation and schema integrity checks. AI-generated components must pass constitutional compliance review and refinement verification. Widget templates must pass security validation, placeholder syntax verification, and webhook integration testing. Use project documentation and development guides for detailed implementation guidance.
+**Compliance Verification**: All pull requests must verify compliance with accessibility standards, responsive design requirements, security guidelines, widget architecture principles, template system standards, tRPC type safety requirements, database development standards, and rapid prototyping quality standards. Database changes must pass migration validation and schema integrity checks. AI-generated components must pass constitutional compliance review and refinement verification. Widget templates must pass security validation, placeholder syntax verification, and webhook integration testing. tRPC routers must pass type safety validation, error handling verification, and authentication integration testing. Use project documentation and development guides for detailed implementation guidance.
 
-**Version**: 2.5.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-20
+**Version**: 2.6.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-01-27

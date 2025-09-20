@@ -39,6 +39,7 @@
 **Monorepo Management**: Turborepo (CONSTITUTIONAL REQUIREMENT)  
 **Frontend Framework**: Next.js (CONSTITUTIONAL REQUIREMENT)  
 **Component Library**: shadcn/ui (CONSTITUTIONAL REQUIREMENT)  
+**API Communication**: tRPC (CONSTITUTIONAL REQUIREMENT for type-safe backend communication)  
 **Rapid Development**: v0 for UI prototyping (CONSTITUTIONAL ALLOWANCE - requires quality refinement)  
 **Authentication**: Kinde (CONSTITUTIONAL REQUIREMENT)  
 **Database**: PostgreSQL (CONSTITUTIONAL REQUIREMENT)  
@@ -232,4 +233,4 @@ tools/
 - [ ] Complexity deviations documented
 
 ---
-*Based on Constitution v2.2.0 - See `/memory/constitution.md`*
+*Based on Constitution v2.6.0 - See `/memory/constitution.md`*

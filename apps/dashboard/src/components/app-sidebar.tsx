@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { AudioWaveform, BookOpen, Bot, Command, GalleryVerticalEnd, SquareTerminal } from "lucide-react"
+import { AudioWaveform, BookOpen, Bot, Command, GalleryVerticalEnd, SquareTerminal, LucideIcon } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -107,7 +107,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     setShowIconSelector(true)
   }
 
-  const handleConfirmSection = (sectionName: string, icon: any) => {
+  const handleConfirmSection = (sectionName: string, icon: LucideIcon) => {
     const newSection = {
       title: sectionName,
       url: "#",
@@ -136,8 +136,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const handleReorderSections = (fromIndex: number, toIndex: number) => {
     const newItems = [...navItems]
     const [movedItem] = newItems.splice(fromIndex, 1)
-    newItems.splice(toIndex, 0, movedItem)
-    setNavItems(newItems)
+    if (movedItem) {
+      newItems.splice(toIndex, 0, movedItem)
+      setNavItems(newItems)
+    }
   }
 
   const handleReorderBoards = (sectionTitle: string, fromIndex: number, toIndex: number) => {
@@ -146,8 +148,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         if (section.title === sectionTitle && section.items) {
           const newItems = [...section.items]
           const [movedItem] = newItems.splice(fromIndex, 1)
-          newItems.splice(toIndex, 0, movedItem)
-          return { ...section, items: newItems }
+          if (movedItem) {
+            newItems.splice(toIndex, 0, movedItem)
+            return { ...section, items: newItems }
+          }
         }
         return section
       }),
@@ -166,18 +170,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     if (fromSectionIndex === -1 || toSectionIndex === -1) return
 
     const newItems = [...navItems]
-    const fromSectionItems = [...(newItems[fromSectionIndex].items || [])]
-    const toSectionItems = [...(newItems[toSectionIndex].items || [])]
+    const fromSectionItem = newItems[fromSectionIndex]
+    const toSectionItem = newItems[toSectionIndex]
+    
+    if (!fromSectionItem || !toSectionItem) return
+    
+    const fromSectionItems = [...(fromSectionItem.items || [])]
+    const toSectionItems = [...(toSectionItem.items || [])]
 
     // Remove board from source section
     const [movedBoard] = fromSectionItems.splice(boardIndex, 1)
+    
+    if (!movedBoard) return
 
     // Add board to target section
     toSectionItems.splice(targetIndex, 0, movedBoard)
 
     // Update both sections
-    newItems[fromSectionIndex] = { ...newItems[fromSectionIndex], items: fromSectionItems }
-    newItems[toSectionIndex] = { ...newItems[toSectionIndex], items: toSectionItems }
+    newItems[fromSectionIndex] = { ...fromSectionItem, items: fromSectionItems }
+    newItems[toSectionIndex] = { ...toSectionItem, items: toSectionItems }
 
     setNavItems(newItems)
   }

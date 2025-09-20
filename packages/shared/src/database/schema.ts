@@ -5,21 +5,68 @@ import {
   text, 
   timestamp, 
   jsonb, 
-  boolean 
+  boolean,
+  inet
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 
 // Users table - integrated with Kinde authentication
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
   kindeId: varchar("kinde_id", { length: 255 }).unique().notNull(),
-  email: varchar("email", { length: 255 }).notNull(),
-  givenName: varchar("given_name", { length: 255 }),
-  familyName: varchar("family_name", { length: 255 }),
-  picture: text("picture"),
+  email: varchar("email", { length: 255 }).unique().notNull(),
+  firstName: varchar("first_name", { length: 100 }),
+  lastName: varchar("last_name", { length: 100 }),
+  profilePicture: text("profile_picture"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  lastLoginAt: timestamp("last_login_at"),
+  isActive: boolean("is_active").default(true).notNull(),
+  preferences: jsonb("preferences").default({}).notNull(),
+});
+
+// User sessions table - track active authentication sessions
+export const userSessions = pgTable("user_sessions", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  kindeSessionId: varchar("kinde_session_id", { length: 255 }),
+  userAgent: varchar("user_agent", { length: 500 }),
+  ipAddress: inet("ip_address"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  lastActivityAt: timestamp("last_activity_at").defaultNow().notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+});
+
+// User profiles table - extended user profile information
+export const userProfiles = pgTable("user_profiles", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").unique().references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  displayName: varchar("display_name", { length: 50 }),
+  timezone: varchar("timezone", { length: 50 }).default('UTC').notNull(),
+  language: varchar("language", { length: 2 }).default('en').notNull(),
+  theme: varchar("theme", { length: 10 }).default('light').notNull(),
+  dashboardLayout: jsonb("dashboard_layout").default({}).notNull(),
+  notificationSettings: jsonb("notification_settings").default({}).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+// Relations
+export const usersRelations = relations(users, ({ many, one }) => ({
+  sessions: many(userSessions),
+  profile: one(userProfiles, { fields: [users.id], references: [userProfiles.userId] }),
+  widgets: many(widgets),
+  dashboardLayouts: many(dashboardLayouts),
+}));
+
+export const userSessionsRelations = relations(userSessions, ({ one }) => ({
+  user: one(users, { fields: [userSessions.userId], references: [users.id] }),
+}));
+
+export const userProfilesRelations = relations(userProfiles, ({ one }) => ({
+  user: one(users, { fields: [userProfiles.userId], references: [users.id] }),
+}));
 
 // Widgets table - core widget definitions
 export const widgets = pgTable("widgets", {
@@ -86,6 +133,12 @@ export const webhookLogs = pgTable("webhook_logs", {
 // Types for TypeScript
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
+
+export type UserSession = typeof userSessions.$inferSelect;
+export type NewUserSession = typeof userSessions.$inferInsert;
+
+export type UserProfile = typeof userProfiles.$inferSelect;
+export type NewUserProfile = typeof userProfiles.$inferInsert;
 
 export type Widget = typeof widgets.$inferSelect;
 export type NewWidget = typeof widgets.$inferInsert;

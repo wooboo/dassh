@@ -10,7 +10,7 @@ Validates that the development environment meets all constitutional requirements
 ## Input Requirements
 ```typescript
 interface SetupInput {
-  nodeVersion: string;          // Must be >= 18.0.0
+  nodeVersion: string;          // Must be >= 22.0.0 (LTS)
   packageManager: 'pnpm';       // Constitutional requirement
   repositoryStructure: {
     apps: string[];             // Must include 'dashboard'
@@ -42,8 +42,8 @@ interface SetupOutput {
 ### 1. Node.js Version Check
 ```bash
 # Command: node --version
-# Expected: >= 18.0.0
-# Error: "Node.js version must be 18.0.0 or higher"
+# Expected: >= 22.0.0 (LTS)
+# Error: "Node.js version must be 22.0.0 or higher (LTS)"
 ```
 
 ### 2. Package Manager Validation
@@ -82,7 +82,7 @@ const requiredStructure = {
 ```typescript
 {
   input: {
-    nodeVersion: "18.17.0",
+    nodeVersion: "22.19.0",
     packageManager: "pnpm",
     repositoryStructure: {
       apps: ["dashboard"],
@@ -108,7 +108,7 @@ const requiredStructure = {
 ```typescript
 {
   input: {
-    nodeVersion: "16.14.0",  // Too old
+    nodeVersion: "20.14.0",  // Too old (pre-LTS 22)
     packageManager: "npm",   // Wrong package manager
     repositoryStructure: {
       apps: ["dashboard"],
@@ -127,7 +127,7 @@ const requiredStructure = {
       testingFramework: false
     },
     errors: [
-      "Node.js version 16.14.0 is below required 18.0.0",
+      "Node.js version 20.14.0 is below required 22.0.0 (LTS)",
       "Package manager 'npm' does not meet constitutional requirement for 'pnpm'",
       "Missing required packages: shared, widgets, config",
       "Missing required tools directory"
@@ -148,7 +148,7 @@ apps/dashboard/tests/contract/test_setup_validation.ts
 import { describe, it, expect } from '@jest/globals';
 
 describe('Development Environment Setup Contract', () => {
-  it('should validate Node.js version >= 18.0.0', async () => {
+  it('should validate Node.js version >= 22.0.0 (LTS)', async () => {
     // Test implementation
   });
 

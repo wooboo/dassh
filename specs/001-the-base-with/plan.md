@@ -36,10 +36,10 @@
 Establish foundational project infrastructure with monorepo structure, Next.js application, and shadcn/ui integration. This creates the constitutional-compliant development environment that supports widget-centric architecture, accessibility-first design, and rapid development workflows. The base setup enables immediate feature development with proper tooling, testing infrastructure, and quality gates.
 
 ## Technical Context
-**Language/Version**: TypeScript 5.0+, Node.js 18+  
+**Language/Version**: TypeScript 5.9+, Node.js 22+ (LTS)  
 **Package Manager**: pnpm (CONSTITUTIONAL REQUIREMENT)  
 **Monorepo Management**: Turborepo (CONSTITUTIONAL REQUIREMENT)  
-**Frontend Framework**: Next.js (CONSTITUTIONAL REQUIREMENT)  
+**Frontend Framework**: Next.js 15+ (CONSTITUTIONAL REQUIREMENT)  
 **Component Library**: shadcn/ui (CONSTITUTIONAL REQUIREMENT)  
 **Rapid Development**: v0 for UI prototyping (CONSTITUTIONAL ALLOWANCE - requires quality refinement)  
 **Authentication**: Kinde (CONSTITUTIONAL REQUIREMENT)  

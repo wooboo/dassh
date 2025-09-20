@@ -11,8 +11,8 @@
 #### Frontend Framework: Next.js
 - **Constitutional Requirement**: Next.js MUST be used for the frontend application
 - **Capabilities**: Server-side rendering, routing, optimization capabilities
-- **Version**: Latest stable (14.x+)
-- **Key Features**: App Router, API Routes, Server Components, Static Generation
+- **Version**: Latest stable (15.5+)
+- **Key Features**: App Router, API Routes, Server Components, Static Generation, Turbopack
 - **Integration**: Works seamlessly with shadcn/ui and Tailwind CSS
 
 #### Component Library: shadcn/ui
@@ -52,6 +52,7 @@
 
 #### TypeScript Configuration
 - **Strict Mode**: Enabled for type safety across all packages
+- **Version**: TypeScript 5.9+ with latest language features
 - **Shared Config**: Centralized TypeScript configuration in tools/typescript/
 - **Path Mapping**: Workspace-aware import paths
 

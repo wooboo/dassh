@@ -12,7 +12,7 @@ This guide provides step-by-step instructions for setting up "The Base" - a foun
 ### System Requirements
 ```bash
 # Node.js version (required)
-node --version  # Must be 18.0.0 or higher
+node --version  # Must be 22.0.0 or higher (LTS)
 
 # Package manager
 pnpm --version  # Must be 8.0.0 or higher

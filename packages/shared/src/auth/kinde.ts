@@ -37,8 +37,8 @@ export class KindeAuthService {
       
       return {
         user,
-        accessToken: accessToken.access_token,
-        expiresAt: Date.now() + (accessToken.expires_in * 1000),
+        accessToken: (accessToken as any).access_token || "",
+        expiresAt: Date.now() + (((accessToken as any).expires_in || 3600) * 1000),
       };
     } catch (error) {
       console.error("Failed to get session:", error);
@@ -49,7 +49,8 @@ export class KindeAuthService {
   static async isAuthenticated(): Promise<boolean> {
     try {
       const { isAuthenticated } = getKindeServerSession();
-      return await isAuthenticated();
+      const result = await isAuthenticated();
+      return result ?? false;
     } catch (error) {
       console.error("Failed to check authentication:", error);
       return false;

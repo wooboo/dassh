@@ -4,5 +4,5 @@ export * from "./schema";
 export { runMigrations, seedDatabase } from "./migrate";
 
 // Re-export auth for convenience
-export { AuthService } from "../auth/kinde";
+export { KindeAuthService as AuthService } from "../auth/kinde";
 export type { User } from "../auth/types";

@@ -1,0 +1,20 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/dashboard"
+    },
+    {
+      "path": "./packages/ui"
+    },
+    {
+      "path": "./packages/shared"
+    },
+    {
+      "path": "./packages/widgets"
+    },
+    {
+      "path": "./packages/config"
+    }
+  ]
+}

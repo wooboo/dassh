@@ -1,60 +1,50 @@
-# Dassh Project Constitution
+# [PROJECT_NAME] Constitution
+<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
 
----
+## Core Principles
 
-## 🏛️ Purpose
+### [PRINCIPLE_1_NAME]
+<!-- Example: I. Library-First -->
+[PRINCIPLE_1_DESCRIPTION]
+<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
 
-The mission of the Dassh project is to create a visually appealing, highly configurable dashboard application.
+### [PRINCIPLE_2_NAME]
+<!-- Example: II. CLI Interface -->
+[PRINCIPLE_2_DESCRIPTION]
+<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
 
-**Vision:**
-- Enable users to easily create and customize dashboards with a variety of widgets.
-- Allow each widget to expose webhooks, so external systems can update the widget's state in real time.
-- Foster a flexible platform where new widgets and integrations can be added with minimal effort.
+### [PRINCIPLE_3_NAME]
+<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
+[PRINCIPLE_3_DESCRIPTION]
+<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
 
----
+### [PRINCIPLE_4_NAME]
+<!-- Example: IV. Integration Testing -->
+[PRINCIPLE_4_DESCRIPTION]
+<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
 
-## 🌟 Principles
+### [PRINCIPLE_5_NAME]
+<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
+[PRINCIPLE_5_DESCRIPTION]
+<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
 
-1. **Openness:** Encourage transparency and open collaboration.
-2. **Innovation:** Foster creativity and continuous improvement.
-3. **Respect:** Value every contributor’s input and diversity.
-4. **Sustainability:** Build for long-term impact and maintainability.
+## [SECTION_2_NAME]
+<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
 
----
+[SECTION_2_CONTENT]
+<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
 
-## 👥 Roles & Responsibilities
+## [SECTION_3_NAME]
+<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
 
-| Role         | Responsibilities                                  |
-|--------------|---------------------------------------------------|
-| Maintainer   | Guides project direction, reviews contributions   |
-| Contributor  | Proposes changes, reports issues, improves docs   |
-| User         | Uses the project, provides feedback               |
+[SECTION_3_CONTENT]
+<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
 
----
+## Governance
+<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-## 📝 Decision Making
+[GOVERNANCE_RULES]
+<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
 
-- Decisions are made by consensus whenever possible.
-- Major changes require approval from maintainers.
-- Disagreements are resolved through discussion and, if needed, a simple majority vote among maintainers.
-
----
-
-## 🔄 Amendments
-
-Proposals to amend this constitution must be submitted as a pull request. Amendments require:
-
-1. Review by at least two maintainers
-2. Approval by a simple majority of maintainers
-
----
-
-## 📅 Version History
-
-| Version | Date       | Changes         |
-|---------|------------|----------------|
-| 1.0     | 2025-09-19 | Initial draft   |
-
----
-
-> _This constitution is a living document. It should evolve as the Dassh project grows._
+**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
+<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->

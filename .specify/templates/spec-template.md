@@ -89,6 +89,12 @@ When creating this spec from a user prompt:
 - **Template Security**: [Note any security considerations for user-defined templates]
 - **Validation Requirements**: [Specify data validation needs for webhook payloads and template placeholders]
 
+### Data Persistence Requirements *(include if feature involves database operations)*
+- **Entities**: [List database entities/tables needed with relationships]
+- **Data Operations**: [Describe CRUD operations, queries, and data transformations required]
+- **Performance Considerations**: [Note indexing, query optimization, or scaling requirements]
+- **Migration Strategy**: [Describe schema changes and data migration needs]
+
 ### Key Entities *(include if feature involves data)*
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]

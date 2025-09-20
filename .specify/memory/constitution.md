@@ -1,25 +1,28 @@
 <!--
-SYNC IMPACT REPORT - Constitution Amendment v2.3.0
+SYNC IMPACT REPORT - Constitution Amendment v2.4.0
 
-VERSION CHANGE: 2.2.0 → 2.3.0 (MINOR version bump)
-RATIONALE: Expanded Widget-Centric Architecture with template-driven widget system and webhook data mapping - significant new capability without breaking existing principles
+VERSION CHANGE: 2.3.0 → 2.4.0 (MINOR version bump)
+RATIONALE: Added data persistence requirements with Drizzle ORM and PostgreSQL - expanded platform requirements without breaking existing principles
 
 MODIFIED PRINCIPLES:
-- Widget-Centric Architecture (Principle III) → Enhanced with template-driven widget creation and webhook data mapping requirements
+- No core principles changed
 
 ADDED SECTIONS:
-- Widget Template System (mandatory template-driven widget creation)
-- Webhook Data Mapping Standards (placeholder-based data binding)
-- Prebuilt Widget Library (curated widget collection with extensibility)
+- Data Persistence Requirements in Platform Requirements:
+  * Drizzle ORM (mandatory for type-safe database access)
+  * PostgreSQL (mandatory database engine)
+  * Database schema management and migration standards
+- Enhanced Development Standards (database development workflow requirements)
+- Data Access Layer Standards (ORM usage and query optimization)
 
 REMOVED SECTIONS:
 - None
 
 TEMPLATES REQUIRING UPDATES:
-✅ plan-template.md - Updated widget architecture requirements for template system
-✅ tasks-template.md - Added widget template creation and validation tasks  
-✅ spec-template.md - Added widget template requirements section
-✅ PowerShell script - Updated for pnpm commands and workspace structure
+✅ plan-template.md - Updated technical context with database requirements and compliance checks
+✅ tasks-template.md - Added database setup, migration, and testing tasks
+✅ spec-template.md - Added data persistence requirements section
+✅ PowerShell script - Already supports workspace structure
 
 FOLLOW-UP TODOS:
 - None - all template synchronization complete
@@ -60,10 +63,14 @@ The application must be visually appealing and maintain consistent design langua
 - **Component Library**: shadcn/ui MUST be used for consistent, accessible UI components that align with design system requirements
 - **Real-time Communication**: WebSocket connections MUST be implemented for real-time widget updates and dashboard synchronization
 - **Authentication**: Kinde MUST be used as the authentication framework, providing secure user management, session handling, and integration with widget security requirements
+- **Database**: PostgreSQL MUST be used as the primary database engine, providing ACID compliance, advanced data types, and scalable performance
+- **ORM**: Drizzle ORM MUST be used for database access, providing type-safe queries, schema management, and migration capabilities
 - **Package Manager**: pnpm MUST be used for package management, providing efficient dependency resolution, disk space optimization, and deterministic builds
 - **Monorepo Management**: Turborepo MUST be used for monorepo orchestration, providing build caching, task scheduling, and workspace dependency management
 
-**Performance Standards**: Initial page load must complete within 3 seconds on 3G networks. Widget rendering must be smooth at 60fps. Real-time webhook updates must have <100ms latency for local network connections. WebSocket connections must maintain sub-50ms message delivery for dashboard updates.
+**Performance Standards**: Initial page load must complete within 3 seconds on 3G networks. Widget rendering must be smooth at 60fps. Real-time webhook updates must have <100ms latency for local network connections. WebSocket connections must maintain sub-50ms message delivery for dashboard updates. Database queries must be optimized for sub-100ms response times with proper indexing and connection pooling.
+
+**Data Persistence Requirements**: All persistent data MUST be stored in PostgreSQL with Drizzle ORM providing the data access layer. Database schemas must be version-controlled through Drizzle migrations. All database operations must use type-safe queries with proper error handling. Connection pooling and query optimization are mandatory for production deployments. Database transactions must maintain ACID properties for data integrity.
 
 **Integration Requirements**: Each widget must expose RESTful webhook endpoints following OpenAPI 3.0 specification. External systems must be able to update widget state through standardized JSON payloads using placeholder-based template mapping. Widget templates must support real-time data binding with validation and type safety. Widget-to-widget communication must use event-driven patterns. All real-time updates must flow through WebSocket channels with proper authentication via Kinde tokens.
 
@@ -74,18 +81,20 @@ The application must be visually appealing and maintain consistent design langua
 
 **Package Management Standards**: All packages must be managed through pnpm workspaces with proper dependency hoisting and version consistency. Build artifacts must be cached using Turborepo's distributed caching system. Cross-package dependencies must be explicitly declared and version-pinned for stability.
 
-**Test-Driven Development**: All new widgets and features must follow TDD principles. Tests are written first, must fail initially, then implementation makes them pass. Widget contract tests, accessibility tests, responsive design tests, and template validation tests are mandatory. Widget templates must include test scenarios for webhook data mapping and placeholder resolution. Tests must be runnable at both package and workspace levels.
+**Database Development Standards**: All database schemas MUST be defined using Drizzle ORM schema definitions with TypeScript types. Database migrations must be version-controlled and tested before deployment. All database queries must use Drizzle's type-safe query builder. Database seeds and test data must be managed through dedicated migration files. Connection management must use environment-specific configuration with proper secret handling.
 
-**Code Quality Gates**: All code must pass ESLint/TSLint checks, accessibility audits (axe-core), responsive design validation across device breakpoints, and security scanning. Widget APIs and template schemas must be documented with OpenAPI specifications. Widget templates must be validated for security (no code injection), performance (efficient data mapping), and usability (clear placeholder syntax). Monorepo builds must maintain sub-second change detection and efficient rebuilds.
+**Test-Driven Development**: All new widgets and features must follow TDD principles. Tests are written first, must fail initially, then implementation makes them pass. Widget contract tests, accessibility tests, responsive design tests, template validation tests, and database integration tests are mandatory. Database tests must use isolated test databases with proper cleanup. Widget templates must include test scenarios for webhook data mapping and placeholder resolution. Tests must be runnable at both package and workspace levels.
 
-**Review Process**: Feature development requires accessibility review, security review, responsive design validation, and widget template validation. All PRs must include test evidence for accessibility compliance, cross-device functionality, and template security. Widget templates must be reviewed for placeholder syntax clarity, data mapping accuracy, and webhook integration safety. Monorepo changes must validate cross-package impact and maintain workspace integrity.
+**Code Quality Gates**: All code must pass ESLint/TSLint checks, accessibility audits (axe-core), responsive design validation across device breakpoints, and security scanning. Widget APIs and template schemas must be documented with OpenAPI specifications. Database schemas must be validated for proper relationships, constraints, and indexing. Widget templates must be validated for security (no code injection), performance (efficient data mapping), and usability (clear placeholder syntax). Monorepo builds must maintain sub-second change detection and efficient rebuilds.
+
+**Review Process**: Feature development requires accessibility review, security review, responsive design validation, widget template validation, and database schema review. All PRs must include test evidence for accessibility compliance, cross-device functionality, template security, and database integrity. Database changes must include migration scripts and rollback procedures. Widget templates must be reviewed for placeholder syntax clarity, data mapping accuracy, and webhook integration safety. Monorepo changes must validate cross-package impact and maintain workspace integrity.
 
 ## Governance
 
 Constitution supersedes all other development practices and guidelines. Any deviation from these principles requires explicit justification, approval from project maintainers, and documentation of alternative approach. 
 
-**Amendment Process**: Constitutional changes require consensus among maintainers, must include impact assessment on existing widgets and features, and must maintain backward compatibility for widget APIs and template schemas unless superseded by security requirements.
+**Amendment Process**: Constitutional changes require consensus among maintainers, must include impact assessment on existing widgets and features, and must maintain backward compatibility for widget APIs, template schemas, and database schemas unless superseded by security requirements.
 
-**Compliance Verification**: All pull requests must verify compliance with accessibility standards, responsive design requirements, security guidelines, widget architecture principles, and template system standards. Widget templates must pass security validation, placeholder syntax verification, and webhook integration testing. Use project documentation and development guides for detailed implementation guidance.
+**Compliance Verification**: All pull requests must verify compliance with accessibility standards, responsive design requirements, security guidelines, widget architecture principles, template system standards, and database development standards. Database changes must pass migration validation and schema integrity checks. Widget templates must pass security validation, placeholder syntax verification, and webhook integration testing. Use project documentation and development guides for detailed implementation guidance.
 
-**Version**: 2.3.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-20
+**Version**: 2.4.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-20

@@ -40,13 +40,15 @@
 **Frontend Framework**: Next.js (CONSTITUTIONAL REQUIREMENT)  
 **Component Library**: shadcn/ui (CONSTITUTIONAL REQUIREMENT)  
 **Authentication**: Kinde (CONSTITUTIONAL REQUIREMENT)  
+**Database**: PostgreSQL (CONSTITUTIONAL REQUIREMENT)  
+**ORM**: Drizzle ORM (CONSTITUTIONAL REQUIREMENT)  
 **Real-time Communication**: WebSocket implementation (CONSTITUTIONAL REQUIREMENT)  
 **Primary Dependencies**: [e.g., React 18+, Tailwind CSS, additional libraries or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, Redis, files or N/A]  
+**Storage**: PostgreSQL with Drizzle ORM (CONSTITUTIONAL REQUIREMENT)  
 **Testing**: [e.g., Jest, Playwright, Cypress or NEEDS CLARIFICATION]  
 **Target Platform**: [e.g., Modern browsers (Chrome 100+, Firefox 100+, Safari 15+, Edge 100+)]
 **Project Type**: [monorepo - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., <3s load time, 60fps rendering, <50ms WebSocket latency or NEEDS CLARIFICATION]  
+**Performance Goals**: [domain-specific, e.g., <3s load time, 60fps rendering, <50ms WebSocket latency, <100ms database queries or NEEDS CLARIFICATION]  
 **Constraints**: [domain-specific, e.g., <100ms webhook response, WCAG 2.1 AA compliance, mobile-first or NEEDS CLARIFICATION]  
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
@@ -60,6 +62,8 @@
 **Widget Architecture Adherence**: All components must be designed as standalone widgets with webhook interfaces, independent testability, and standardized configuration APIs. Widget templates must support placeholder-based data mapping from webhook payloads. Template system must be secure (no code execution), intuitive for users, and include validation for data binding.
 
 **Security Implementation**: Design must include encryption for data transmission, webhook authentication and rate limiting, input validation strategy, and OWASP compliance measures.
+
+**Data Persistence Compliance**: Database design must use PostgreSQL with Drizzle ORM for type-safe data access. All database schemas must be version-controlled through migrations. Database queries must be optimized with proper indexing and connection pooling.
 
 **Visual Design Standards**: Interface design must demonstrate consistent design language, usability-driven decisions, and professional aesthetic coherence across all components.
 

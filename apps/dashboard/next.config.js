@@ -1,28 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
-  },
   transpilePackages: ["@dassh/ui", "@dassh/shared", "@dassh/widgets"],
+
   eslint: {
     ignoreDuringBuilds: false,
   },
+
   typescript: {
     ignoreBuildErrors: false,
   },
+
   images: {
     formats: ['image/webp', 'image/avif'],
   },
+
   // Performance optimizations
   poweredByHeader: false,
+
   compress: true,
+
   // Security headers
   async headers() {
     return [
@@ -49,6 +45,15 @@ const nextConfig = {
       },
     ];
   },
+
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    }
+  }
 };
 
 module.exports = nextConfig;

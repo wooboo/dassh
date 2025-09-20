@@ -43,29 +43,34 @@
 - Paths shown below assume single project - adjust based on plan.md structure
 
 ## Phase 3.1: Setup
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T001 Create Next.js project structure with TypeScript configuration
+- [ ] T002 Initialize project with Next.js, shadcn/ui, Kinde auth, and WebSocket dependencies
+- [ ] T003 [P] Configure ESLint, Prettier, and Tailwind CSS
+- [ ] T004 [P] Setup Kinde authentication configuration and environment variables
+- [ ] T005 [P] Configure WebSocket server infrastructure for real-time communication
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T004 [P] Contract test POST /api/users in tests/contract/test_users_post.py
-- [ ] T005 [P] Contract test GET /api/users/{id} in tests/contract/test_users_get.py
-- [ ] T006 [P] Integration test user registration in tests/integration/test_registration.py
-- [ ] T007 [P] Integration test auth flow in tests/integration/test_auth.py
-- [ ] T008 [P] Accessibility test WCAG 2.1 AA compliance in tests/accessibility/test_wcag.py
-- [ ] T009 [P] Responsive design test cross-device validation in tests/responsive/test_breakpoints.py
-- [ ] T010 [P] Widget architecture test webhook interfaces in tests/widget/test_webhook_contract.py
+- [ ] T006 [P] Contract test POST /api/users in tests/contract/test_users_post.ts
+- [ ] T007 [P] Contract test GET /api/users/{id} in tests/contract/test_users_get.ts
+- [ ] T008 [P] Integration test user registration in tests/integration/test_registration.ts
+- [ ] T009 [P] Integration test Kinde auth flow in tests/integration/test_auth.ts
+- [ ] T010 [P] Accessibility test WCAG 2.1 AA compliance in tests/accessibility/test_wcag.ts
+- [ ] T011 [P] Responsive design test cross-device validation in tests/responsive/test_breakpoints.ts
+- [ ] T012 [P] Widget architecture test webhook interfaces in tests/widget/test_webhook_contract.ts
+- [ ] T013 [P] WebSocket communication test real-time updates in tests/websocket/test_realtime.ts
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T011 [P] User model in src/models/user.py
-- [ ] T012 [P] UserService CRUD in src/services/user_service.py
-- [ ] T013 [P] CLI --create-user in src/cli/user_commands.py
-- [ ] T014 POST /api/users endpoint
-- [ ] T015 GET /api/users/{id} endpoint
-- [ ] T016 Input validation with security sanitization
-- [ ] T017 Error handling and logging
-- [ ] T018 [P] Widget base class with webhook interface in src/widgets/base_widget.py
+- [ ] T014 [P] User model with TypeScript interfaces in src/models/user.ts
+- [ ] T015 [P] UserService CRUD with Next.js API routes in src/services/user_service.ts
+- [ ] T016 [P] shadcn/ui component library integration in src/components/ui/
+- [ ] T017 POST /api/users endpoint with Next.js API routes
+- [ ] T018 GET /api/users/{id} endpoint with Next.js API routes
+- [ ] T019 Input validation with Zod schema validation
+- [ ] T020 Error handling and logging with Next.js error boundaries
+- [ ] T021 [P] Widget base class with webhook interface in src/widgets/base_widget.tsx
+- [ ] T022 [P] Kinde authentication integration in src/auth/kinde_config.ts
+- [ ] T023 [P] WebSocket client/server implementation in src/websocket/
 
 ## Phase 3.4: Integration
 - [ ] T019 Connect UserService to DB
@@ -84,10 +89,12 @@
 - [ ] T030 [P] Visual design consistency audit in tests/visual/test_design_system.py
 
 ## Dependencies
-- Tests (T004-T010) before implementation (T011-T018)
-- T011 blocks T012, T019
-- T020 blocks T022
-- Implementation before polish (T025-T030)
+- Setup (T001-T005) before tests (T006-T013)
+- Tests (T006-T013) before implementation (T014-T023)
+- T014 blocks T015, T017-T018
+- T022 (Kinde) blocks authentication-dependent features
+- T023 (WebSocket) blocks real-time features
+- Implementation before polish (T024-T033)
 
 ## Parallel Example
 ```

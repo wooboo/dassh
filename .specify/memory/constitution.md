@@ -1,34 +1,37 @@
 <!--
-SYNC IMPACT REPORT - Constitution Amendment v2.0.0
+SYNC IMPACT REPORT - Constitution Amendment v2.1.0
 
-VERSION CHANGE: Template → 2.0.0 (MAJOR version bump)
-RATIONALE: Complete architectural redesign introducing new core principles for dashboard-specific development
+VERSION CHANGE: 2.0.0 → 2.1.0 (MINOR version bump)
+RATIONALE: Added mandatory technology stack requirements - expanded platform guidance without breaking existing principles
 
 MODIFIED PRINCIPLES:
-- NEW: I. Accessibility-First Design (WCAG 2.1 AA compliance mandatory)
-- NEW: II. Responsive Excellence (mobile-first, cross-device compatibility)
-- NEW: III. Widget-Centric Architecture (standalone widgets with webhook interfaces) [NON-NEGOTIABLE]
-- NEW: IV. Security by Design (OWASP compliance, encryption, authentication)
-- NEW: V. Visual Design Excellence (consistent design language, professional aesthetics)
+- No core principles changed
 
 ADDED SECTIONS:
-- Platform Requirements (web platform standards, performance standards, integration requirements)
-- Development Standards (TDD with constitutional compliance, quality gates, review process)
-- Enhanced Governance (compliance verification, amendment process)
+- Technology Stack Requirements in Platform Requirements:
+  * Next.js frontend framework (mandatory)
+  * shadcn/ui component library (mandatory) 
+  * WebSocket real-time communication (mandatory)
+  * Kinde authentication framework (mandatory)
+- Enhanced Performance Standards (WebSocket <50ms message delivery)
+- Enhanced Integration Requirements (WebSocket channels with Kinde authentication)
 
 REMOVED SECTIONS:
-- All original template placeholder sections
+- None
 
 TEMPLATES REQUIRING UPDATES:
-✅ plan-template.md - Updated Constitution Check section with specific accessibility, responsive, widget, security, and design gates
-✅ tasks-template.md - Added constitutional compliance tests (accessibility, responsive, widget architecture), enhanced validation checklist
-⚠ spec-template.md - Pending review for alignment with new platform requirements and widget-centric approach
-⚠ agent-file-template.md - Not reviewed, may need updates for constitutional compliance requirements
+✅ plan-template.md - Previously updated with constitutional compliance gates
+✅ tasks-template.md - Previously updated with compliance testing
+⚠ spec-template.md - Needs review for tech stack alignment (Next.js, shadcn/ui, WebSocket, Kinde)
+⚠ agent-file-template.md - Needs review for tech stack requirements
+⚠ plan-template.md - May need tech stack validation in Technical Context section
+⚠ tasks-template.md - May need tech stack setup tasks and validation
 
 FOLLOW-UP TODOS:
-- Review spec-template.md for alignment with new constitutional requirements
-- Validate any runtime guidance documents for constitutional compliance references
-- Ensure README.md reflects new architectural principles if project documentation exists
+- Update templates to include Next.js, shadcn/ui, WebSocket, and Kinde setup requirements
+- Ensure spec-template.md captures tech stack constraints in requirements
+- Validate task templates include proper tech stack initialization tasks
+- Review any existing documentation for tech stack alignment
 -->
 
 # Dassh Project Constitution
@@ -55,9 +58,15 @@ The application must be visually appealing and maintain consistent design langua
 
 **Web Platform Standards**: The application is a web-based dashboard that must function in modern browsers (Chrome 100+, Firefox 100+, Safari 15+, Edge 100+). Progressive Web App (PWA) capabilities are required for improved mobile experience and offline functionality where applicable.
 
-**Performance Standards**: Initial page load must complete within 3 seconds on 3G networks. Widget rendering must be smooth at 60fps. Real-time webhook updates must have <100ms latency for local network connections.
+**Technology Stack Requirements**: 
+- **Frontend Framework**: Next.js MUST be used for the frontend application, providing server-side rendering, routing, and optimization capabilities
+- **Component Library**: shadcn/ui MUST be used for consistent, accessible UI components that align with design system requirements
+- **Real-time Communication**: WebSocket connections MUST be implemented for real-time widget updates and dashboard synchronization
+- **Authentication**: Kinde MUST be used as the authentication framework, providing secure user management, session handling, and integration with widget security requirements
 
-**Integration Requirements**: Each widget must expose RESTful webhook endpoints following OpenAPI 3.0 specification. External systems must be able to update widget state through standardized JSON payloads. Widget-to-widget communication must use event-driven patterns.
+**Performance Standards**: Initial page load must complete within 3 seconds on 3G networks. Widget rendering must be smooth at 60fps. Real-time webhook updates must have <100ms latency for local network connections. WebSocket connections must maintain sub-50ms message delivery for dashboard updates.
+
+**Integration Requirements**: Each widget must expose RESTful webhook endpoints following OpenAPI 3.0 specification. External systems must be able to update widget state through standardized JSON payloads. Widget-to-widget communication must use event-driven patterns. All real-time updates must flow through WebSocket channels with proper authentication via Kinde tokens.
 
 ## Development Standards
 <!-- Quality gates and development workflow requirements -->
@@ -76,4 +85,4 @@ Constitution supersedes all other development practices and guidelines. Any devi
 
 **Compliance Verification**: All pull requests must verify compliance with accessibility standards, responsive design requirements, security guidelines, and widget architecture principles. Use project documentation and development guides for detailed implementation guidance.
 
-**Version**: 2.0.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-20
+**Version**: 2.1.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-20

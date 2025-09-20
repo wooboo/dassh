@@ -34,14 +34,18 @@
 [Extract from feature spec: primary requirement + technical approach from research]
 
 ## Technical Context
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Language/Version**: [e.g., TypeScript 5.0+, Node.js 18+ or NEEDS CLARIFICATION]  
+**Frontend Framework**: Next.js (CONSTITUTIONAL REQUIREMENT)  
+**Component Library**: shadcn/ui (CONSTITUTIONAL REQUIREMENT)  
+**Authentication**: Kinde (CONSTITUTIONAL REQUIREMENT)  
+**Real-time Communication**: WebSocket implementation (CONSTITUTIONAL REQUIREMENT)  
+**Primary Dependencies**: [e.g., React 18+, Tailwind CSS, additional libraries or NEEDS CLARIFICATION]  
+**Storage**: [if applicable, e.g., PostgreSQL, Redis, files or N/A]  
+**Testing**: [e.g., Jest, Playwright, Cypress or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Modern browsers (Chrome 100+, Firefox 100+, Safari 15+, Edge 100+)]
 **Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Performance Goals**: [domain-specific, e.g., <3s load time, 60fps rendering, <50ms WebSocket latency or NEEDS CLARIFICATION]  
+**Constraints**: [domain-specific, e.g., <100ms webhook response, WCAG 2.1 AA compliance, mobile-first or NEEDS CLARIFICATION]  
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
@@ -216,4 +220,4 @@ ios/ or android/
 - [ ] Complexity deviations documented
 
 ---
-*Based on Constitution v2.0.0 - See `/memory/constitution.md`*
+*Based on Constitution v2.1.0 - See `/memory/constitution.md`*

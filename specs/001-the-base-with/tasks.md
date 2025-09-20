@@ -43,17 +43,17 @@
 - Paths shown below assume monorepo structure with Turborepo orchestration
 
 ## Phase 3.1: Setup
-- [ ] T001 Initialize monorepo with pnpm workspace configuration and Turborepo setup at repository root
-- [ ] T002 Create workspace structure: apps/, packages/, tools/ directories with proper .gitignore
-- [ ] T003 [P] Configure Turborepo build pipeline and caching in turbo.json with constitutional compliance
-- [ ] T004 [P] Setup shared TypeScript configuration in tools/tsconfig/base.json for TypeScript 5.9+
-- [ ] T005 [P] Configure ESLint with accessibility rules in tools/config/eslint/ for WCAG 2.1 AA compliance
-- [ ] T006 [P] Setup Prettier and Tailwind CSS configuration in tools/config/ for design system consistency
-- [ ] T007 [P] Create shared UI package structure in packages/ui/ with shadcn/ui foundation
-- [ ] T008 [P] Initialize shared utilities package in packages/shared/ for common functionality
-- [ ] T009 [P] Setup widgets package structure in packages/widgets/ with base widget classes
-- [ ] T010 [P] Configure shared config package in packages/config/ for workspace-wide settings
-- [ ] T011 Setup Next.js 15+ dashboard app in apps/dashboard/ with App Router and TypeScript
+- [x] T001 Initialize monorepo with pnpm workspace configuration and Turborepo setup at repository root
+- [x] T002 Create workspace structure: apps/, packages/, tools/ directories with proper .gitignore
+- [x] T003 [P] Configure Turborepo build pipeline and caching in turbo.json with constitutional compliance
+- [x] T004 [P] Setup shared TypeScript configuration in tools/tsconfig/base.json for TypeScript 5.9+
+- [x] T005 [P] Configure ESLint with accessibility rules in tools/config/eslint/ for WCAG 2.1 AA compliance
+- [x] T006 [P] Setup Prettier and Tailwind CSS configuration in tools/config/ for design system consistency
+- [x] T007 [P] Create shared UI package structure in packages/ui/ with shadcn/ui foundation
+- [x] T008 [P] Initialize shared utilities package in packages/shared/ for common functionality
+- [x] T009 [P] Setup widgets package structure in packages/widgets/ with base widget classes
+- [x] T010 [P] Configure shared config package in packages/config/ for workspace-wide settings
+- [x] T011 Setup Next.js 15+ dashboard app in apps/dashboard/ with App Router and TypeScript
 - [ ] T012 [P] Configure Kinde authentication setup in packages/shared/src/auth/
 - [ ] T013 [P] Setup PostgreSQL with Drizzle ORM in packages/shared/src/database/
 - [ ] T014 [P] Configure WebSocket infrastructure in packages/shared/src/websocket/

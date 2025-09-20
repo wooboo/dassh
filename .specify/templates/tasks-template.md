@@ -49,7 +49,7 @@
 - [ ] T004 [P] Setup Next.js dashboard app in apps/dashboard/ with TypeScript
 - [ ] T005 [P] Initialize shared UI package in packages/ui/ with shadcn/ui components
 - [ ] T006 [P] Configure ESLint, Prettier, and Tailwind CSS in tools/config/
-- [ ] T008 [P] Setup tRPC configuration and router structure in packages/shared/api/
+- [ ] T008 [P] Setup oRPC configuration and procedure structure in packages/shared/api/
 - [ ] T009 [P] Setup Kinde authentication configuration in packages/shared/auth/
 - [ ] T010 [P] Setup PostgreSQL database with Drizzle ORM in packages/shared/database/
 - [ ] T011 [P] Configure database connection and migration scripts in packages/shared/database/migrations/
@@ -59,7 +59,7 @@
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T015 [P] Contract test tRPC router procedures in packages/shared/tests/api/test_trpc_routers.ts
+- [ ] T015 [P] Contract test oRPC procedure handlers in packages/shared/tests/api/test_orpc_procedures.ts
 - [ ] T016 [P] Contract test POST /api/users in apps/dashboard/tests/contract/test_users_post.ts
 - [ ] T017 [P] Contract test GET /api/users/{id} in apps/dashboard/tests/contract/test_users_get.ts
 - [ ] T018 [P] Database integration test user CRUD operations in packages/shared/tests/database/test_user_crud.ts
@@ -76,13 +76,13 @@
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 - [ ] T028 [P] Database schema definition with Drizzle ORM in packages/shared/src/database/schema.ts
 - [ ] T029 [P] User model with TypeScript interfaces in packages/shared/src/models/user.ts
-- [ ] T030 [P] tRPC router implementation with Zod validation in packages/shared/src/api/routers/
+- [ ] T030 [P] oRPC procedure implementation with Zod validation in packages/shared/src/api/procedures/
 - [ ] T031 [P] Database service layer with Drizzle queries in packages/shared/src/services/database_service.ts
 - [ ] T032 [P] v0 component generation and constitutional refinement in packages/ui/src/components/
 - [ ] T033 [P] UserService CRUD with database integration in packages/shared/src/services/user_service.ts
 - [ ] T034 [P] shadcn/ui component library integration in packages/ui/src/components/
-- [ ] T035 tRPC client setup with Next.js integration in apps/dashboard/src/lib/trpc.ts
-- [ ] T036 Frontend tRPC API calls replacing REST endpoints in apps/dashboard/src/
+- [ ] T035 oRPC client setup with Next.js integration in apps/dashboard/src/lib/orpc.ts
+- [ ] T036 Frontend oRPC API calls replacing REST endpoints in apps/dashboard/src/
 - [ ] T037 Database migration scripts with Drizzle migrate in packages/shared/src/database/migrations/
 - [ ] T038 Input validation with Zod schema validation in packages/shared/src/validation/
 - [ ] T039 Error handling and logging with Next.js error boundaries in apps/dashboard/src/components/error/
@@ -93,7 +93,7 @@
 ## Phase 3.4: Verification & Integration
 - [ ] T043 Run database migrations with pnpm db:migrate in workspace root
 - [ ] T044 Run end-to-end tests with pnpm test in workspace root
-- [ ] T045 Verify tRPC type safety and API contract validation in packages/shared/
+- [ ] T045 Verify oRPC type safety and API contract validation in packages/shared/
 - [ ] T046 Verify API response schemas match frontend models in packages/shared/
 - [ ] T047 Validate v0-generated components meet constitutional standards in packages/ui/
 - [ ] T048 Confirm database queries are optimized with proper indexing in packages/shared/database/

@@ -33,7 +33,7 @@
 ### Technology Stack (NON-NEGOTIABLE)
 - **Frontend**: Next.js (App Router preferred)
 - **Components**: shadcn/ui components only
-- **API Communication**: tRPC for type-safe backend communication
+- **API Communication**: oRPC for type-safe backend communication with OpenAPI compliance
 - **Database**: PostgreSQL with Drizzle ORM
 - **Authentication**: Kinde service integration
 - **Package Manager**: pnpm (never npm or yarn)
@@ -76,37 +76,57 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
 ```
 
-### tRPC API Development Pattern
+### oRPC API Development Pattern
 ```typescript
-// Server-side tRPC router
+// Server-side oRPC procedures with OpenAPI support
 import { z } from "zod";
-import { router, publicProcedure, protectedProcedure } from "@/lib/trpc";
+import { os } from "@orpc/server";
 
-export const userRouter = router({
-  getUser: protectedProcedure
+const userProcedures = {
+  getUser: os
+    .route({ method: 'GET', path: '/users/{id}' })
     .input(z.object({ id: z.string() }))
-    .query(async ({ input, ctx }) => {
-      return await ctx.db.query.users.findFirst({
+    .output(z.object({
+      id: z.string(),
+      email: z.string().email(),
+      name: z.string()
+    }))
+    .handler(async ({ input, context }) => {
+      return await context.db.query.users.findFirst({
         where: eq(users.id, input.id)
       });
     }),
   
-  createUser: protectedProcedure
+  createUser: os
+    .route({ method: 'POST', path: '/users' })
     .input(z.object({ 
       name: z.string().min(1),
       email: z.string().email()
     }))
-    .mutation(async ({ input, ctx }) => {
-      return await ctx.db.insert(users).values(input);
+    .output(z.object({
+      id: z.string(),
+      email: z.string(),
+      name: z.string()
+    }))
+    .handler(async ({ input, context }) => {
+      return await context.db.insert(users).values(input);
     })
-});
+};
 
-// Client-side tRPC usage
-import { trpc } from "@/lib/trpc";
+// Client-side oRPC usage with full type safety
+import { createORPCClient } from "@orpc/client";
+import { RPCLink } from "@orpc/client/fetch";
+
+const client = createORPCClient(new RPCLink({
+  url: '/api/rpc'
+}));
 
 function UserProfile({ userId }: { userId: string }) {
-  const { data: user, isLoading } = trpc.user.getUser.useQuery({ id: userId });
-  const createUserMutation = trpc.user.createUser.useMutation();
+  const [user, setUser] = useState(null);
+  
+  useEffect(() => {
+    client.getUser({ id: userId }).then(setUser);
+  }, [userId]);
   
   // Full type safety and autocomplete available
 }
@@ -168,7 +188,7 @@ apps/
 packages/
 ├── shared/
 │   ├── auth/          # Kinde integration utilities
-│   ├── api/           # tRPC routers and procedures
+│   ├── api/           # oRPC routers and procedures
 │   ├── database/      # User schema and queries
 │   └── validation/    # Auth form validation
 ├── ui/                # Shared shadcn/ui components
@@ -182,7 +202,7 @@ packages/
 - `UserAvatar` - User profile picture component
 
 ## Recent Changes
-- **2025-01-27**: Constitution updated to v2.6.0 - Added tRPC requirement for type-safe API communication
+- **2025-01-27**: Constitution updated to v2.7.0 - Added oRPC requirement for type-safe API communication
 - **2025-09-20**: User authentication system planning completed
 - **Feature Spec**: Created comprehensive authentication requirements (FR-001 to FR-013)
 - **Data Model**: Designed PostgreSQL schema with Users, UserSessions, UserProfiles
@@ -204,5 +224,5 @@ packages/
 
 ---
 **Last Updated**: January 27, 2025  
-**Constitution Version**: 2.6.0  
+**Constitution Version**: 2.7.0  
 **Active Branch**: 002-user-authentication-i

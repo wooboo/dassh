@@ -8,7 +8,7 @@ import { eq, and } from 'drizzle-orm';
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { sessionId: string } }
+  { params }: { params: Promise<{ sessionId: string }> }
 ) {
   try {
     const { getUser, isAuthenticated } = getKindeServerSession();
@@ -28,7 +28,7 @@ export async function DELETE(
       );
     }
 
-    const { sessionId } = params;
+    const { sessionId } = await params;
 
     if (!sessionId) {
       return NextResponse.json(
@@ -86,7 +86,9 @@ export async function DELETE(
       message: 'Session successfully deleted'
     });
   } catch (error) {
-    console.error('Session deletion error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Session deletion error:', error);
+    }
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

@@ -13,7 +13,9 @@ const nextConfig = {
   images: {
     formats: ['image/webp', 'image/avif'],
   },
-
+  devIndicators: {
+    position: 'bottom-right'
+  },
   // Performance optimizations
   poweredByHeader: false,
 

@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React, { useState } from "react"
 
 import {
   ChevronRight,
@@ -14,7 +14,6 @@ import {
   ArrowRight,
   type LucideIcon,
 } from "lucide-react"
-import { useState } from "react"
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@dassh/ui/components/collapsible"
 import {

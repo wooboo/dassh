@@ -1,5 +1,5 @@
 import { withAuth } from "@kinde-oss/kinde-auth-nextjs/middleware";
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 /**
  * Next.js middleware for protecting dashboard routes with Kinde authentication
@@ -28,7 +28,7 @@ export default function middleware(req: NextRequest) {
       publicPaths: [],
       
       // Custom authorization logic - could add role-based access here
-      isAuthorized: ({ token }: { token: any }) => {
+      isAuthorized: () => {
         // For now, any authenticated user can access dashboard
         // In the future, you could add role checks here:
         // return token.permissions?.includes("dashboard:access") ?? false;

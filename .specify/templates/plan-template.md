@@ -47,7 +47,15 @@
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**Accessibility Compliance**: Design must include WCAG 2.1 AA compliance plan, keyboard navigation support, screen reader compatibility testing approach, and semantic markup validation.
+
+**Responsive Design Validation**: Implementation must demonstrate mobile-first design approach, touch-friendly interactions for all devices, and content prioritization strategy across breakpoints.
+
+**Widget Architecture Adherence**: All components must be designed as standalone widgets with webhook interfaces, independent testability, and standardized configuration APIs.
+
+**Security Implementation**: Design must include encryption for data transmission, webhook authentication and rate limiting, input validation strategy, and OWASP compliance measures.
+
+**Visual Design Standards**: Interface design must demonstrate consistent design language, usability-driven decisions, and professional aesthetic coherence across all components.
 
 ## Project Structure
 
@@ -208,4 +216,4 @@ ios/ or android/
 - [ ] Complexity deviations documented
 
 ---
-*Based on Constitution v2.1.1 - See `/memory/constitution.md`*
+*Based on Constitution v2.0.0 - See `/memory/constitution.md`*

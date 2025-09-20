@@ -53,42 +53,52 @@
 - [ ] T005 [P] Contract test GET /api/users/{id} in tests/contract/test_users_get.py
 - [ ] T006 [P] Integration test user registration in tests/integration/test_registration.py
 - [ ] T007 [P] Integration test auth flow in tests/integration/test_auth.py
+- [ ] T008 [P] Accessibility test WCAG 2.1 AA compliance in tests/accessibility/test_wcag.py
+- [ ] T009 [P] Responsive design test cross-device validation in tests/responsive/test_breakpoints.py
+- [ ] T010 [P] Widget architecture test webhook interfaces in tests/widget/test_webhook_contract.py
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T008 [P] User model in src/models/user.py
-- [ ] T009 [P] UserService CRUD in src/services/user_service.py
-- [ ] T010 [P] CLI --create-user in src/cli/user_commands.py
-- [ ] T011 POST /api/users endpoint
-- [ ] T012 GET /api/users/{id} endpoint
-- [ ] T013 Input validation
-- [ ] T014 Error handling and logging
+- [ ] T011 [P] User model in src/models/user.py
+- [ ] T012 [P] UserService CRUD in src/services/user_service.py
+- [ ] T013 [P] CLI --create-user in src/cli/user_commands.py
+- [ ] T014 POST /api/users endpoint
+- [ ] T015 GET /api/users/{id} endpoint
+- [ ] T016 Input validation with security sanitization
+- [ ] T017 Error handling and logging
+- [ ] T018 [P] Widget base class with webhook interface in src/widgets/base_widget.py
 
 ## Phase 3.4: Integration
-- [ ] T015 Connect UserService to DB
-- [ ] T016 Auth middleware
-- [ ] T017 Request/response logging
-- [ ] T018 CORS and security headers
+- [ ] T019 Connect UserService to DB
+- [ ] T020 Auth middleware with rate limiting
+- [ ] T021 Request/response logging
+- [ ] T022 CORS and security headers
+- [ ] T023 [P] Responsive CSS framework integration in src/styles/responsive.css
+- [ ] T024 [P] Accessibility features (ARIA labels, keyboard nav) in src/accessibility/
 
 ## Phase 3.5: Polish
-- [ ] T019 [P] Unit tests for validation in tests/unit/test_validation.py
-- [ ] T020 Performance tests (<200ms)
-- [ ] T021 [P] Update docs/api.md
-- [ ] T022 Remove duplication
-- [ ] T023 Run manual-testing.md
+- [ ] T025 [P] Unit tests for validation in tests/unit/test_validation.py
+- [ ] T026 Performance tests (<200ms widget render, <100ms webhook response)
+- [ ] T027 [P] Update docs/api.md with widget webhook specifications
+- [ ] T028 Remove duplication
+- [ ] T029 Run manual-testing.md with accessibility and responsive validation
+- [ ] T030 [P] Visual design consistency audit in tests/visual/test_design_system.py
 
 ## Dependencies
-- Tests (T004-T007) before implementation (T008-T014)
-- T008 blocks T009, T015
-- T016 blocks T018
-- Implementation before polish (T019-T023)
+- Tests (T004-T010) before implementation (T011-T018)
+- T011 blocks T012, T019
+- T020 blocks T022
+- Implementation before polish (T025-T030)
 
 ## Parallel Example
 ```
-# Launch T004-T007 together:
+# Launch T004-T010 together:
 Task: "Contract test POST /api/users in tests/contract/test_users_post.py"
 Task: "Contract test GET /api/users/{id} in tests/contract/test_users_get.py"
 Task: "Integration test registration in tests/integration/test_registration.py"
 Task: "Integration test auth in tests/integration/test_auth.py"
+Task: "Accessibility test WCAG 2.1 AA compliance in tests/accessibility/test_wcag.py"
+Task: "Responsive design test cross-device validation in tests/responsive/test_breakpoints.py"
+Task: "Widget architecture test webhook interfaces in tests/widget/test_webhook_contract.py"
 ```
 
 ## Notes
@@ -115,6 +125,13 @@ Task: "Integration test auth in tests/integration/test_auth.py"
 4. **Ordering**:
    - Setup → Tests → Models → Services → Endpoints → Polish
    - Dependencies block parallel execution
+   - Constitutional compliance tests (accessibility, responsive, widget architecture) are mandatory
+
+5. **Constitutional Compliance**:
+   - Accessibility tests mandatory for all UI components
+   - Responsive design validation across device breakpoints
+   - Widget webhook interface testing required
+   - Security validation for all endpoints
 
 ## Validation Checklist
 *GATE: Checked by main() before returning*
@@ -125,3 +142,7 @@ Task: "Integration test auth in tests/integration/test_auth.py"
 - [ ] Parallel tasks truly independent
 - [ ] Each task specifies exact file path
 - [ ] No task modifies same file as another [P] task
+- [ ] Accessibility tests included for all UI components
+- [ ] Responsive design validation tasks present
+- [ ] Widget architecture compliance verified
+- [ ] Security validation tasks included

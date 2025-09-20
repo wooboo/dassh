@@ -4,6 +4,9 @@
     "baseUrl": ".",
     "outDir": "dist",
     "rootDir": "src",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false,
     "paths": {
       "@dassh/ui/*": ["./src/*"]
     }

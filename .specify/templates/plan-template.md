@@ -39,6 +39,7 @@
 **Monorepo Management**: Turborepo (CONSTITUTIONAL REQUIREMENT)  
 **Frontend Framework**: Next.js (CONSTITUTIONAL REQUIREMENT)  
 **Component Library**: shadcn/ui (CONSTITUTIONAL REQUIREMENT)  
+**Rapid Development**: v0 for UI prototyping (CONSTITUTIONAL ALLOWANCE - requires quality refinement)  
 **Authentication**: Kinde (CONSTITUTIONAL REQUIREMENT)  
 **Database**: PostgreSQL (CONSTITUTIONAL REQUIREMENT)  
 **ORM**: Drizzle ORM (CONSTITUTIONAL REQUIREMENT)  
@@ -64,6 +65,8 @@
 **Security Implementation**: Design must include encryption for data transmission, webhook authentication and rate limiting, input validation strategy, and OWASP compliance measures.
 
 **Data Persistence Compliance**: Database design must use PostgreSQL with Drizzle ORM for type-safe data access. All database schemas must be version-controlled through migrations. Database queries must be optimized with proper indexing and connection pooling.
+
+**Rapid Development Compliance**: If using v0 for UI prototyping, all generated components must be reviewed and refined for constitutional compliance. AI-generated code must pass accessibility, security, and performance standards before integration.
 
 **Visual Design Standards**: Interface design must demonstrate consistent design language, usability-driven decisions, and professional aesthetic coherence across all components.
 

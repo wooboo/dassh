@@ -95,6 +95,12 @@ When creating this spec from a user prompt:
 - **Performance Considerations**: [Note indexing, query optimization, or scaling requirements]
 - **Migration Strategy**: [Describe schema changes and data migration needs]
 
+### Rapid Development Considerations *(include if using v0 for UI prototyping)*
+- **Prototyping Scope**: [Define what components/features will use v0 for initial generation]
+- **Refinement Requirements**: [Specify constitutional standards that generated code must meet]
+- **Quality Gates**: [Define review and validation process for AI-generated components]
+- **Integration Strategy**: [Describe how prototypes will be refined into production code]
+
 ### Key Entities *(include if feature involves data)*
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]

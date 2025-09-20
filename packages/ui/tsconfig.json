@@ -5,8 +5,7 @@
     "outDir": "dist",
     "rootDir": "src",
     "paths": {
-      "@dassh/ui/*": ["./src/*"],
-      "@/*": ["./src/*"]
+      "@dassh/ui/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],

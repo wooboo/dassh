@@ -78,6 +78,17 @@ When creating this spec from a user prompt:
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
+### Workspace Considerations *(include if feature spans multiple workspace packages)*
+- **Affected Packages**: [List workspace packages impacted - apps/dashboard, packages/ui, packages/shared, etc.]
+- **Package Dependencies**: [Note any new dependencies between workspace packages]
+- **Shared Components**: [Identify components that should be shared across packages]
+
+### Widget Template Requirements *(include if feature involves widget creation or modification)*
+- **Widget Types**: [List widget types needed - prebuilt widgets to customize, new widget templates to create]
+- **Data Mapping**: [Describe webhook data sources and required placeholder mappings]
+- **Template Security**: [Note any security considerations for user-defined templates]
+- **Validation Requirements**: [Specify data validation needs for webhook payloads and template placeholders]
+
 ### Key Entities *(include if feature involves data)*
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]

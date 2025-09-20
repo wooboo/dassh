@@ -35,6 +35,8 @@
 
 ## Technical Context
 **Language/Version**: [e.g., TypeScript 5.0+, Node.js 18+ or NEEDS CLARIFICATION]  
+**Package Manager**: pnpm (CONSTITUTIONAL REQUIREMENT)  
+**Monorepo Management**: Turborepo (CONSTITUTIONAL REQUIREMENT)  
 **Frontend Framework**: Next.js (CONSTITUTIONAL REQUIREMENT)  
 **Component Library**: shadcn/ui (CONSTITUTIONAL REQUIREMENT)  
 **Authentication**: Kinde (CONSTITUTIONAL REQUIREMENT)  
@@ -43,7 +45,7 @@
 **Storage**: [if applicable, e.g., PostgreSQL, Redis, files or N/A]  
 **Testing**: [e.g., Jest, Playwright, Cypress or NEEDS CLARIFICATION]  
 **Target Platform**: [e.g., Modern browsers (Chrome 100+, Firefox 100+, Safari 15+, Edge 100+)]
-**Project Type**: [single/web/mobile - determines source structure]  
+**Project Type**: [monorepo - determines source structure]  
 **Performance Goals**: [domain-specific, e.g., <3s load time, 60fps rendering, <50ms WebSocket latency or NEEDS CLARIFICATION]  
 **Constraints**: [domain-specific, e.g., <100ms webhook response, WCAG 2.1 AA compliance, mobile-first or NEEDS CLARIFICATION]  
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
@@ -55,7 +57,7 @@
 
 **Responsive Design Validation**: Implementation must demonstrate mobile-first design approach, touch-friendly interactions for all devices, and content prioritization strategy across breakpoints.
 
-**Widget Architecture Adherence**: All components must be designed as standalone widgets with webhook interfaces, independent testability, and standardized configuration APIs.
+**Widget Architecture Adherence**: All components must be designed as standalone widgets with webhook interfaces, independent testability, and standardized configuration APIs. Widget templates must support placeholder-based data mapping from webhook payloads. Template system must be secure (no code execution), intuitive for users, and include validation for data binding.
 
 **Security Implementation**: Design must include encryption for data transmission, webhook authentication and rate limiting, input validation strategy, and OWASP compliance measures.
 
@@ -76,42 +78,45 @@ specs/[###-feature]/
 
 ### Source Code (repository root)
 ```
-# Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+### Source Code (repository root)
+```
+# Monorepo Structure (CONSTITUTIONAL REQUIREMENT)
+apps/
+├── dashboard/           # Main Next.js dashboard application
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── widgets/
+│   └── tests/
+├── api/                 # Backend API application (if needed)
+│   ├── src/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── models/
+│   └── tests/
+└── admin/              # Admin interface (if needed)
+    ├── src/
+    └── tests/
 
-tests/
-├── contract/
-├── integration/
-└── unit/
+packages/
+├── ui/                 # Shared shadcn/ui components
+├── shared/             # Shared utilities and types
+├── widgets/            # Reusable widget library
+└── config/             # Shared configuration
 
-# Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
+tools/
+├── eslint-config/      # Shared ESLint configuration
+├── tsconfig/           # Shared TypeScript configuration
+└── build/              # Build tools and scripts
 
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure]
+# Workspace Configuration Files
+├── package.json        # Root workspace configuration
+├── pnpm-workspace.yaml # pnpm workspace definition
+├── turbo.json          # Turborepo configuration
+└── .gitignore
 ```
 
-**Structure Decision**: [DEFAULT to Option 1 unless Technical Context indicates web/mobile app]
+**Structure Decision**: Monorepo with Turborepo orchestration (CONSTITUTIONAL REQUIREMENT)
 
 ## Phase 0: Outline & Research
 1. **Extract unknowns from Technical Context** above:
@@ -220,4 +225,4 @@ ios/ or android/
 - [ ] Complexity deviations documented
 
 ---
-*Based on Constitution v2.1.0 - See `/memory/constitution.md`*
+*Based on Constitution v2.2.0 - See `/memory/constitution.md`*

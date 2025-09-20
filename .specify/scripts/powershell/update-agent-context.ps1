@@ -40,12 +40,12 @@ function Initialize-AgentFile($targetFile, $agentName) {
     $content = $content.Replace('[PROJECT NAME]', (Split-Path $repoRoot -Leaf))
     $content = $content.Replace('[DATE]', (Get-Date -Format 'yyyy-MM-dd'))
     $content = $content.Replace('[EXTRACTED FROM ALL PLAN.MD FILES]', "- $newLang + $newFramework ($currentBranch)")
-    if ($newProjectType -match 'web') { $structure = "backend/`nfrontend/`ntests/" } else { $structure = "src/`ntests/" }
+    if ($newProjectType -match 'web') { $structure = "apps/dashboard/`npackages/ui/`npackages/shared/`npackages/widgets/`ntools/" } else { $structure = "apps/main/`npackages/shared/`ntools/" }
     $content = $content.Replace('[ACTUAL STRUCTURE FROM PLANS]', $structure)
-    if ($newLang -match 'Python') { $commands = 'cd src && pytest && ruff check .' }
-    elseif ($newLang -match 'Rust') { $commands = 'cargo test && cargo clippy' }
-    elseif ($newLang -match 'JavaScript|TypeScript') { $commands = 'npm test && npm run lint' }
-    else { $commands = "# Add commands for $newLang" }
+    if ($newLang -match 'Python') { $commands = 'pnpm test && pnpm lint && pnpm build' }
+    elseif ($newLang -match 'Rust') { $commands = 'pnpm --filter=@dassh/rust-lib test && pnpm --filter=@dassh/rust-lib build' }
+    elseif ($newLang -match 'JavaScript|TypeScript') { $commands = 'pnpm test && pnpm lint && pnpm build' }
+    else { $commands = "# Add pnpm commands for $newLang" }
     $content = $content.Replace('[ONLY COMMANDS FOR ACTIVE TECHNOLOGIES]', $commands)
     $content = $content.Replace('[LANGUAGE-SPECIFIC, ONLY FOR LANGUAGES IN USE]', "${newLang}: Follow standard conventions")
     $content = $content.Replace('[LAST 3 FEATURES AND WHAT THEY ADDED]', "- ${currentBranch}: Added ${newLang} + ${newFramework}")

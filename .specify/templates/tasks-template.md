@@ -13,11 +13,11 @@
    → contracts/: Each file → contract test task
    → research.md: Extract decisions → setup tasks
 3. Generate tasks by category:
-   → Setup: project init, dependencies, linting
-   → Tests: contract tests, integration tests
-   → Core: models, services, CLI commands
-   → Integration: DB, middleware, logging
-   → Polish: unit tests, performance, docs
+   → Setup: project init, dependencies, linting, widget template system
+   → Tests: contract tests, integration tests, widget template validation
+   → Core: models, services, CLI commands, widget templates
+   → Integration: DB, middleware, logging, webhook data mapping
+   → Polish: unit tests, performance, docs, widget template documentation
 4. Apply task rules:
    → Different files = mark [P] for parallel
    → Same file = sequential (no [P])
@@ -37,48 +37,55 @@
 - Include exact file paths in descriptions
 
 ## Path Conventions
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **Monorepo structure**: `apps/dashboard/src/`, `packages/ui/src/`, `tools/` at repository root
+- **Workspace packages**: Each package has own `src/` and `tests/` directories
+- **Shared resources**: `packages/shared/`, `packages/ui/`, `packages/config/`
+- Paths shown below assume monorepo structure with Turborepo orchestration
 
 ## Phase 3.1: Setup
-- [ ] T001 Create Next.js project structure with TypeScript configuration
-- [ ] T002 Initialize project with Next.js, shadcn/ui, Kinde auth, and WebSocket dependencies
-- [ ] T003 [P] Configure ESLint, Prettier, and Tailwind CSS
-- [ ] T004 [P] Setup Kinde authentication configuration and environment variables
-- [ ] T005 [P] Configure WebSocket server infrastructure for real-time communication
+- [ ] T001 Initialize monorepo with pnpm workspace configuration and Turborepo setup
+- [ ] T002 Create workspace structure: apps/, packages/, tools/ directories
+- [ ] T003 [P] Configure Turborepo build pipeline and caching in turbo.json
+- [ ] T004 [P] Setup Next.js dashboard app in apps/dashboard/ with TypeScript
+- [ ] T005 [P] Initialize shared UI package in packages/ui/ with shadcn/ui components
+- [ ] T006 [P] Configure ESLint, Prettier, and Tailwind CSS in tools/config/
+- [ ] T007 [P] Setup Kinde authentication configuration in packages/shared/auth/
+- [ ] T008 [P] Configure WebSocket infrastructure in packages/shared/websocket/
+- [ ] T009 [P] Setup shared TypeScript configuration in tools/tsconfig/
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T006 [P] Contract test POST /api/users in tests/contract/test_users_post.ts
-- [ ] T007 [P] Contract test GET /api/users/{id} in tests/contract/test_users_get.ts
-- [ ] T008 [P] Integration test user registration in tests/integration/test_registration.ts
-- [ ] T009 [P] Integration test Kinde auth flow in tests/integration/test_auth.ts
-- [ ] T010 [P] Accessibility test WCAG 2.1 AA compliance in tests/accessibility/test_wcag.ts
-- [ ] T011 [P] Responsive design test cross-device validation in tests/responsive/test_breakpoints.ts
-- [ ] T012 [P] Widget architecture test webhook interfaces in tests/widget/test_webhook_contract.ts
-- [ ] T013 [P] WebSocket communication test real-time updates in tests/websocket/test_realtime.ts
+- [ ] T010 [P] Contract test POST /api/users in apps/dashboard/tests/contract/test_users_post.ts
+- [ ] T011 [P] Contract test GET /api/users/{id} in apps/dashboard/tests/contract/test_users_get.ts
+- [ ] T012 [P] Integration test user registration in apps/dashboard/tests/integration/test_registration.ts
+- [ ] T013 [P] Integration test Kinde auth flow in packages/shared/tests/auth/test_auth.ts
+- [ ] T014 [P] Accessibility test WCAG 2.1 AA compliance in packages/ui/tests/accessibility/test_wcag.ts
+- [ ] T015 [P] Responsive design test cross-device validation in packages/ui/tests/responsive/test_breakpoints.ts
+- [ ] T016 [P] Widget architecture test webhook interfaces in packages/widgets/tests/test_webhook_contract.ts
+- [ ] T017 [P] WebSocket communication test real-time updates in packages/shared/tests/websocket/test_realtime.ts
+- [ ] T018 [P] Monorepo build test Turborepo pipeline validation in tests/integration/test_build_pipeline.ts
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T014 [P] User model with TypeScript interfaces in src/models/user.ts
-- [ ] T015 [P] UserService CRUD with Next.js API routes in src/services/user_service.ts
-- [ ] T016 [P] shadcn/ui component library integration in src/components/ui/
-- [ ] T017 POST /api/users endpoint with Next.js API routes
-- [ ] T018 GET /api/users/{id} endpoint with Next.js API routes
-- [ ] T019 Input validation with Zod schema validation
-- [ ] T020 Error handling and logging with Next.js error boundaries
-- [ ] T021 [P] Widget base class with webhook interface in src/widgets/base_widget.tsx
-- [ ] T022 [P] Kinde authentication integration in src/auth/kinde_config.ts
-- [ ] T023 [P] WebSocket client/server implementation in src/websocket/
+- [ ] T019 [P] User model with TypeScript interfaces in packages/shared/src/models/user.ts
+- [ ] T020 [P] UserService CRUD with Next.js API routes in apps/dashboard/src/services/user_service.ts
+- [ ] T021 [P] shadcn/ui component library integration in packages/ui/src/components/
+- [ ] T022 POST /api/users endpoint with Next.js API routes in apps/dashboard/src/pages/api/users/
+- [ ] T023 GET /api/users/{id} endpoint with Next.js API routes in apps/dashboard/src/pages/api/users/[id].ts
+- [ ] T024 Input validation with Zod schema validation in packages/shared/src/validation/
+- [ ] T025 Error handling and logging with Next.js error boundaries in apps/dashboard/src/components/error/
+- [ ] T026 [P] Widget base class with webhook interface in packages/widgets/src/base_widget.tsx
+- [ ] T027 [P] Kinde authentication integration in packages/shared/src/auth/kinde_config.ts
+- [ ] T028 [P] WebSocket client/server implementation in packages/shared/src/websocket/
 
-## Phase 3.4: Integration
-- [ ] T019 Connect UserService to DB
-- [ ] T020 Auth middleware with rate limiting
-- [ ] T021 Request/response logging
-- [ ] T022 CORS and security headers
-- [ ] T023 [P] Responsive CSS framework integration in src/styles/responsive.css
-- [ ] T024 [P] Accessibility features (ARIA labels, keyboard nav) in src/accessibility/
+## Phase 3.4: Verification & Integration
+- [ ] T029 Run end-to-end tests with pnpm test in workspace root
+- [ ] T030 Verify API response schemas match frontend models in packages/shared/
+- [ ] T031 Confirm shadcn/ui component variants and styling in packages/ui/
+- [ ] T032 Validate authentication flow with Kinde integration in packages/shared/src/auth/
+- [ ] T033 Test WebSocket connectivity across all widgets in packages/widgets/
+- [ ] T034 Performance testing with Lighthouse CI in apps/dashboard/
+- [ ] T035 Security audit with Next.js security headers in apps/dashboard/next.config.js
+- [ ] T036 Code review with TypeScript strict mode in workspace configuration
 
 ## Phase 3.5: Polish
 - [ ] T025 [P] Unit tests for validation in tests/unit/test_validation.py

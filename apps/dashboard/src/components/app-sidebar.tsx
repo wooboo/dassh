@@ -7,69 +7,69 @@ import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import { IconSelector } from "@/components/icon-selector"
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@dassh/ui/components/sidebar"
 
 // This is sample data.
 const data = {
   user: {
-    name: "Dashboard Admin",
-    email: "admin@dassh.dev",
-    avatar: "/avatars/admin.jpg",
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
   },
   teams: [
     {
-      name: "DASSH Project",
+      name: "Acme Inc",
       logo: GalleryVerticalEnd,
       plan: "Enterprise",
     },
     {
-      name: "Development",
+      name: "Acme Corp.",
       logo: AudioWaveform,
-      plan: "Pro",
+      plan: "Startup",
     },
     {
-      name: "Production",
+      name: "Evil Corp.",
       logo: Command,
-      plan: "Enterprise",
+      plan: "Free",
     },
   ],
   navMain: [
     {
-      title: "Dashboard",
-      url: "/dashboard",
+      title: "Playground",
+      url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "Overview",
-          url: "/dashboard",
+          title: "History",
+          url: "#",
         },
         {
-          title: "Analytics",
-          url: "/dashboard/analytics",
+          title: "Starred",
+          url: "#",
         },
         {
           title: "Settings",
-          url: "/dashboard/settings",
+          url: "#",
         },
       ],
     },
     {
-      title: "Widgets",
+      title: "Models",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "All Widgets",
-          url: "/widgets",
+          title: "Genesis",
+          url: "#",
         },
         {
-          title: "Create Widget",
-          url: "/widgets/create",
+          title: "Explorer",
+          url: "#",
         },
         {
-          title: "Templates",
-          url: "/widgets/templates",
+          title: "Quantum",
+          url: "#",
         },
       ],
     },
@@ -79,20 +79,20 @@ const data = {
       icon: BookOpen,
       items: [
         {
-          title: "Getting Started",
-          url: "/docs",
+          title: "Introduction",
+          url: "#",
         },
         {
-          title: "Widget API",
-          url: "/docs/api",
+          title: "Get Started",
+          url: "#",
         },
         {
-          title: "Examples",
-          url: "/docs/examples",
+          title: "Tutorials",
+          url: "#",
         },
         {
           title: "Changelog",
-          url: "/docs/changelog",
+          url: "#",
         },
       ],
     },

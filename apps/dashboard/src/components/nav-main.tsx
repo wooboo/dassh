@@ -16,7 +16,7 @@ import {
 } from "lucide-react"
 import { useState } from "react"
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@dassh/ui/components/collapsible"
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -26,8 +26,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
+} from "@dassh/ui/components/sidebar"
+import { Button } from "@dassh/ui/components/button"
 
 export function NavMain({
   items,

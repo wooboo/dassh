@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@dassh/ui/components/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@dassh/ui/components/card";
 
 export default function Home() {
   return (

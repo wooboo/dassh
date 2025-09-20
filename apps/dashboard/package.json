@@ -76,6 +76,8 @@
   },
   "devDependencies": {
     "@dassh/config": "workspace:*",
+    "@dassh/typescript-config": "workspace:*",
+    "@dassh/eslint-config": "workspace:*",
     "@next/eslint-plugin-next": "^15.5.3",
     "@playwright/test": "^1.55.0",
     "@tailwindcss/postcss": "^4.1.9",

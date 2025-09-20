@@ -12,8 +12,8 @@
   "iconLibrary": "lucide",
   "aliases": {
     "components": "@/components",
-    "hooks": "@/hooks",
-    "lib": "@/lib",
+    "hooks": "@dassh/ui/hooks",
+    "lib": "@dassh/ui/lib",
     "utils": "@dassh/ui/lib/utils",
     "ui": "@dassh/ui/components"
   }

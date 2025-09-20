@@ -7,7 +7,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@dassh/ui/components/breadcrumb'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@dassh/ui/components/card'
 import { Separator } from '@dassh/ui/components/separator'
 import {
   SidebarInset,

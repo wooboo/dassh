@@ -1,4 +1,5 @@
 import { KindeAuthService } from "./kinde";
+import type { AuthRequest, AuthResponse } from "./types";
 
 // Verify JWT token (for WebSocket authentication)
 export const verifyToken = async (token: string) => {
@@ -20,19 +21,6 @@ export async function checkAuthentication(): Promise<boolean> {
     console.error("Authentication check failed:", error);
     return false;
   }
-}
-
-// Types for middleware (avoid importing Next.js types in shared package)
-export interface AuthRequest {
-  url: string;
-  pathname: string;
-}
-
-export interface AuthResponse {
-  type: "next" | "redirect" | "unauthorized";
-  redirectUrl?: string;
-  status?: number;
-  error?: string;
 }
 
 export async function validateAuth(request: AuthRequest): Promise<AuthResponse> {

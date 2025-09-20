@@ -1,5 +1,5 @@
 {
-  "extends": "../../tools/tsconfig/base.json",
+  "extends": "@dassh/typescript-config/react-library.json",
   "compilerOptions": {
     "declaration": true,
     "outDir": "dist",

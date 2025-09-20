@@ -1,25 +1,37 @@
-import { 
-  getKindeServerSession, 
-  LoginLink, 
-  LogoutLink, 
-  RegisterLink 
+// Import using type-only imports for server components to avoid module resolution issues
+import type { 
+  getKindeServerSession as GetKindeServerSession, 
+  LoginLink as KindeLoginLink, 
+  LogoutLink as KindeLogoutLink, 
+  RegisterLink as KindeRegisterLink 
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import type { User, AuthSession } from "./types";
+
+// Dynamic imports to handle server-only modules
+async function getKindeServerSession() {
+  const kindeModule = await import("@kinde-oss/kinde-auth-nextjs/server");
+  return kindeModule.getKindeServerSession();
+}
 
 export class KindeAuthService {
   static async getUser(): Promise<User | null> {
     try {
-      const { getUser } = getKindeServerSession();
+      const { getUser } = await getKindeServerSession();
       const user = await getUser();
       
       if (!user) return null;
       
       return {
         id: user.id,
+        kindeId: user.id,
         email: user.email || "",
-        given_name: user.given_name || undefined,
-        family_name: user.family_name || undefined,
-        picture: user.picture || undefined,
+        firstName: user.given_name || undefined,
+        lastName: user.family_name || undefined,
+        profilePicture: user.picture || undefined,
+        isActive: true,
+        preferences: {},
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
     } catch (error) {
       console.error("Failed to get user:", error);
@@ -29,7 +41,7 @@ export class KindeAuthService {
 
   static async getSession(): Promise<AuthSession | null> {
     try {
-      const { getAccessToken, getUser } = getKindeServerSession();
+      const { getAccessToken, getUser } = await getKindeServerSession();
       const user = await this.getUser();
       const accessToken = await getAccessToken();
       
@@ -48,7 +60,7 @@ export class KindeAuthService {
 
   static async isAuthenticated(): Promise<boolean> {
     try {
-      const { isAuthenticated } = getKindeServerSession();
+      const { isAuthenticated } = await getKindeServerSession();
       const result = await isAuthenticated();
       return result ?? false;
     } catch (error) {
@@ -80,5 +92,12 @@ export class KindeAuthService {
   }
 }
 
-// Export auth components for client use
-export { LoginLink, LogoutLink, RegisterLink };
+// Export auth components for client use (with dynamic imports)
+export async function getAuthComponents() {
+  const kindeModule = await import("@kinde-oss/kinde-auth-nextjs/server");
+  return {
+    LoginLink: kindeModule.LoginLink,
+    LogoutLink: kindeModule.LogoutLink,
+    RegisterLink: kindeModule.RegisterLink,
+  };
+}

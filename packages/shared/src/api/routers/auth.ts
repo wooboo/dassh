@@ -10,7 +10,6 @@ export const authProcedures = {
    * Public procedure that returns user info if authenticated
    */
   getStatus: publicProcedure
-    .route({ method: 'GET', path: '/auth/status' })
     .handler(async ({ context }) => {
       if (!context.isAuthenticated || !context.user) {
         return {

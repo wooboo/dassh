@@ -12,7 +12,6 @@ if (!connectionString) {
 // Create postgres client
 const client: Sql = postgres(connectionString, {
   prepare: false, // Disable prepared statements for compatibility
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
 });
 
 // Create Drizzle instance

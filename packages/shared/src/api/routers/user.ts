@@ -30,7 +30,6 @@ export const userProcedures = {
    * Get user profile information
    */
   getProfile: protectedProcedure
-    .route({ method: 'GET', path: '/user/profile' })
     .handler(async ({ context }) => {
       const { db, user } = context;
 
@@ -87,7 +86,6 @@ export const userProcedures = {
    * Update user profile information
    */
   updateProfile: protectedProcedure
-    .route({ method: 'PUT', path: '/user/profile' })
     .input(updateProfileSchema)
     .handler(async ({ context, input }) => {
       const { db, user } = context;
@@ -227,7 +225,6 @@ export const userProcedures = {
    * Get user's active sessions
    */
   getSessions: protectedProcedure
-    .route({ method: 'GET', path: '/user/sessions' })
     .handler(async ({ context }) => {
       const { db, user } = context;
 
@@ -283,7 +280,6 @@ export const userProcedures = {
    * Terminate a specific session
    */
   terminateSession: protectedProcedure
-    .route({ method: 'DELETE', path: '/user/sessions/{sessionId}' })
     .input(z.object({
       sessionId: z.string(),
     }))

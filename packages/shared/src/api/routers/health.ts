@@ -10,7 +10,6 @@ export const healthProcedures = {
    * Simple hello endpoint to test oRPC setup
    */
   hello: publicProcedure
-    .route({ method: 'GET', path: '/health/hello' })
     .input(z.object({
       name: z.string().optional().default('World'),
     }))
@@ -31,7 +30,6 @@ export const healthProcedures = {
    * Database connection test endpoint
    */
   dbTest: publicProcedure
-    .route({ method: 'GET', path: '/health/db' })
     .input(z.object({}))
     .output(z.object({
       status: z.enum(['healthy', 'unhealthy']),
@@ -70,7 +68,6 @@ export const healthProcedures = {
    * Complete system health check
    */
   systemHealth: publicProcedure
-    .route({ method: 'GET', path: '/health/system' })
     .input(z.object({}))
     .output(z.object({
       status: z.enum(['healthy', 'degraded', 'unhealthy']),

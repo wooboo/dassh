@@ -1,5 +1,5 @@
 import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import postgres, { type Sql } from "postgres";
 import * as schema from "./schema";
 
 // Database connection configuration
@@ -10,9 +10,8 @@ if (!connectionString) {
 }
 
 // Create postgres client
-const client = postgres(connectionString, {
+const client: Sql = postgres(connectionString, {
   prepare: false, // Disable prepared statements for compatibility
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
 });
 
 // Create Drizzle instance

@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React, { useState } from "react"
 
 import {
   ChevronRight,
@@ -14,9 +14,8 @@ import {
   ArrowRight,
   type LucideIcon,
 } from "lucide-react"
-import { useState } from "react"
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@dassh/ui/components/collapsible"
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -26,8 +25,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
+} from "@dassh/ui/components/sidebar"
+import { Button } from "@dassh/ui/components/button"
 
 export function NavMain({
   items,
@@ -160,8 +159,10 @@ export function NavMain({
     const currentSectionIndex = items.findIndex((item) => item.title === currentSectionTitle)
     if (currentSectionIndex > 0 && onMoveBoardBetweenSections) {
       const targetSection = items[currentSectionIndex - 1]
-      const targetIndex = targetSection.items?.length || 0
-      onMoveBoardBetweenSections(currentSectionTitle, targetSection.title, boardIndex, targetIndex)
+      if (targetSection) {
+        const targetIndex = targetSection.items?.length || 0
+        onMoveBoardBetweenSections(currentSectionTitle, targetSection.title, boardIndex, targetIndex)
+      }
     }
   }
 
@@ -169,7 +170,9 @@ export function NavMain({
     const currentSectionIndex = items.findIndex((item) => item.title === currentSectionTitle)
     if (currentSectionIndex < items.length - 1 && onMoveBoardBetweenSections) {
       const targetSection = items[currentSectionIndex + 1]
-      onMoveBoardBetweenSections(currentSectionTitle, targetSection.title, boardIndex, 0)
+      if (targetSection) {
+        onMoveBoardBetweenSections(currentSectionTitle, targetSection.title, boardIndex, 0)
+      }
     }
   }
 

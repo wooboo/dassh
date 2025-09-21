@@ -21,7 +21,7 @@ import {
   type LucideIcon,
 } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@dassh/ui/components/button"
 import {
   Dialog,
   DialogContent,
@@ -29,9 +29,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@dassh/ui/components/dialog"
+import { Input } from "@dassh/ui/components/input"
+import { Label } from "@dassh/ui/components/label"
 
 const availableIcons: { name: string; icon: LucideIcon }[] = [
   { name: "Terminal", icon: SquareTerminal },

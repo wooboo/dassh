@@ -56,3 +56,21 @@ export interface V0ToWidgetTemplate {
   configSchema: Record<string, any>;
   previewData?: Record<string, any>;
 }
+
+// Authentication-specific v0 generation types
+export interface AuthWidgetGenerateRequest extends V0GenerateRequest {
+  authProvider?: "kinde" | "auth0" | "clerk" | "supabase";
+  placement?: "dashboard" | "main-page" | "standalone";
+  variant?: "dropdown" | "button" | "avatar" | "guard" | "status";
+}
+
+export interface AuthWidgetTemplate extends V0ToWidgetTemplate {
+  authConfig: {
+    provider: string;
+    requiredProps: string[];
+    optionalProps: string[];
+    callbacks: string[];
+  };
+  securityFeatures: string[];
+  accessibilityFeatures: string[];
+}

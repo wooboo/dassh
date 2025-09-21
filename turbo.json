@@ -5,7 +5,8 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "env": ["VERCEL_URL", "PORT", "NODE_ENV"]
     },
     "test": {
       "dependsOn": ["^build"],
@@ -34,7 +35,8 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["VERCEL_URL", "PORT", "NODE_ENV"]
     },
     "clean": {
       "cache": false
@@ -44,5 +46,6 @@
     "**/.env.*local",
     "pnpm-workspace.yaml",
     "turbo.json"
-  ]
+  ],
+  "globalEnv": ["NODE_ENV"]
 }

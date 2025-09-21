@@ -1,75 +1,70 @@
 "use client"
 
 import * as React from "react"
-import { AudioWaveform, BookOpen, Bot, Command, GalleryVerticalEnd, SquareTerminal } from "lucide-react"
+import { AudioWaveform, BookOpen, Bot, Command, GalleryVerticalEnd, SquareTerminal, LucideIcon } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import { IconSelector } from "@/components/icon-selector"
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@dassh/ui/components/sidebar"
 
 // This is sample data.
 const data = {
-  user: {
-    name: "Dashboard Admin",
-    email: "admin@dassh.dev",
-    avatar: "/avatars/admin.jpg",
-  },
   teams: [
     {
-      name: "DASSH Project",
+      name: "Acme Inc",
       logo: GalleryVerticalEnd,
       plan: "Enterprise",
     },
     {
-      name: "Development",
+      name: "Acme Corp.",
       logo: AudioWaveform,
-      plan: "Pro",
+      plan: "Startup",
     },
     {
-      name: "Production",
+      name: "Evil Corp.",
       logo: Command,
-      plan: "Enterprise",
+      plan: "Free",
     },
   ],
   navMain: [
     {
-      title: "Dashboard",
-      url: "/dashboard",
+      title: "Playground",
+      url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "Overview",
-          url: "/dashboard",
+          title: "History",
+          url: "#",
         },
         {
-          title: "Analytics",
-          url: "/dashboard/analytics",
+          title: "Starred",
+          url: "#",
         },
         {
           title: "Settings",
-          url: "/dashboard/settings",
+          url: "#",
         },
       ],
     },
     {
-      title: "Widgets",
+      title: "Models",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "All Widgets",
-          url: "/widgets",
+          title: "Genesis",
+          url: "#",
         },
         {
-          title: "Create Widget",
-          url: "/widgets/create",
+          title: "Explorer",
+          url: "#",
         },
         {
-          title: "Templates",
-          url: "/widgets/templates",
+          title: "Quantum",
+          url: "#",
         },
       ],
     },
@@ -79,20 +74,20 @@ const data = {
       icon: BookOpen,
       items: [
         {
-          title: "Getting Started",
-          url: "/docs",
+          title: "Introduction",
+          url: "#",
         },
         {
-          title: "Widget API",
-          url: "/docs/api",
+          title: "Get Started",
+          url: "#",
         },
         {
-          title: "Examples",
-          url: "/docs/examples",
+          title: "Tutorials",
+          url: "#",
         },
         {
           title: "Changelog",
-          url: "/docs/changelog",
+          url: "#",
         },
       ],
     },
@@ -107,7 +102,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     setShowIconSelector(true)
   }
 
-  const handleConfirmSection = (sectionName: string, icon: any) => {
+  const handleConfirmSection = (sectionName: string, icon: LucideIcon) => {
     const newSection = {
       title: sectionName,
       url: "#",
@@ -136,8 +131,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const handleReorderSections = (fromIndex: number, toIndex: number) => {
     const newItems = [...navItems]
     const [movedItem] = newItems.splice(fromIndex, 1)
-    newItems.splice(toIndex, 0, movedItem)
-    setNavItems(newItems)
+    if (movedItem) {
+      newItems.splice(toIndex, 0, movedItem)
+      setNavItems(newItems)
+    }
   }
 
   const handleReorderBoards = (sectionTitle: string, fromIndex: number, toIndex: number) => {
@@ -146,8 +143,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         if (section.title === sectionTitle && section.items) {
           const newItems = [...section.items]
           const [movedItem] = newItems.splice(fromIndex, 1)
-          newItems.splice(toIndex, 0, movedItem)
-          return { ...section, items: newItems }
+          if (movedItem) {
+            newItems.splice(toIndex, 0, movedItem)
+            return { ...section, items: newItems }
+          }
         }
         return section
       }),
@@ -166,18 +165,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     if (fromSectionIndex === -1 || toSectionIndex === -1) return
 
     const newItems = [...navItems]
-    const fromSectionItems = [...(newItems[fromSectionIndex].items || [])]
-    const toSectionItems = [...(newItems[toSectionIndex].items || [])]
+    const fromSectionItem = newItems[fromSectionIndex]
+    const toSectionItem = newItems[toSectionIndex]
+    
+    if (!fromSectionItem || !toSectionItem) return
+    
+    const fromSectionItems = [...(fromSectionItem.items || [])]
+    const toSectionItems = [...(toSectionItem.items || [])]
 
     // Remove board from source section
     const [movedBoard] = fromSectionItems.splice(boardIndex, 1)
+    
+    if (!movedBoard) return
 
     // Add board to target section
     toSectionItems.splice(targetIndex, 0, movedBoard)
 
     // Update both sections
-    newItems[fromSectionIndex] = { ...newItems[fromSectionIndex], items: fromSectionItems }
-    newItems[toSectionIndex] = { ...newItems[toSectionIndex], items: toSectionItems }
+    newItems[fromSectionIndex] = { ...fromSectionItem, items: fromSectionItems }
+    newItems[toSectionIndex] = { ...toSectionItem, items: toSectionItems }
 
     setNavItems(newItems)
   }
@@ -199,7 +205,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           />
         </SidebarContent>
         <SidebarFooter>
-          <NavUser user={data.user} />
+          <NavUser />
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>

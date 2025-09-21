@@ -1,6 +1,7 @@
 {
   "name": "@dassh/shared",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "description": "Shared utilities, types, and services for dassh project",
   "main": "./src/index.ts",
@@ -17,6 +18,10 @@
     "./auth": {
       "types": "./src/auth/index.ts",
       "default": "./src/auth/index.ts"
+    },
+    "./api": {
+      "types": "./src/api/index.ts",
+      "default": "./src/api/index.ts"
     },
     "./websocket": {
       "types": "./src/websocket/index.ts",
@@ -39,6 +44,7 @@
   },
   "dependencies": {
     "@kinde-oss/kinde-auth-nextjs": "^2.9.2",
+    "@orpc/server": "^1.8.9",
     "drizzle-orm": "^0.44.5",
     "postgres": "^3.4.7",
     "ws": "^8.18.3",

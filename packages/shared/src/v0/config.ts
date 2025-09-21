@@ -50,6 +50,27 @@ export const v0Templates = {
     prompt: "Create a gauge widget showing progress with percentage and color coding",
     style: "default" as const,
   },
+  // Authentication-specific widget templates
+  profileDropdown: {
+    prompt: "Create a user profile dropdown with avatar, name, email, and action items (profile, settings, logout). Include hover states and accessibility features.",
+    style: "modern" as const,
+  },
+  authButton: {
+    prompt: "Create an authentication button with loading states, success/error feedback, and responsive design. Support both sign-in and sign-up modes.",
+    style: "default" as const,
+  },
+  userAvatar: {
+    prompt: "Create a user avatar component with fallback initials, online status indicator, and customizable size options.",
+    style: "minimal" as const,
+  },
+  sessionStatus: {
+    prompt: "Create a session status indicator showing connection state, last activity, and security information with subtle visual cues.",
+    style: "minimal" as const,
+  },
+  authGuard: {
+    prompt: "Create an authentication guard component with loading spinner, unauthorized message, and redirect handling.",
+    style: "default" as const,
+  },
 } as const;
 
 // Standard v0 generation options for widgets

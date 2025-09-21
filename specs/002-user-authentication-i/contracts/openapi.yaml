@@ -1,0 +1,513 @@
+openapi: 3.0.3
+info:
+  title: User Authentication System API
+  version: 1.0.0
+  description: API specification for user authentication system with Kinde integration
+  contact:
+    name: Dassh Development Team
+    email: dev@dassh.com
+
+servers:
+  - url: http://localhost:3000/api
+    description: Development server
+  - url: https://dassh.com/api
+    description: Production server
+
+security:
+  - KindeAuth: []
+
+paths:
+  /auth/status:
+    get:
+      summary: Check authentication status
+      description: Returns current user authentication status and basic profile if authenticated
+      tags:
+        - Authentication
+      security: []
+      responses:
+        '200':
+          description: Authentication status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isAuthenticated:
+                    type: boolean
+                  user:
+                    $ref: '#/components/schemas/UserBasic'
+                required:
+                  - isAuthenticated
+
+  /auth/refresh:
+    post:
+      summary: Refresh authentication token
+      description: Refresh the current authentication token
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  expiresAt:
+                    type: string
+                    format: date-time
+                required:
+                  - success
+                  - expiresAt
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /user/profile:
+    get:
+      summary: Get user profile
+      description: Retrieve current user profile information
+      tags:
+        - User Profile
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  profile:
+                    $ref: '#/components/schemas/UserProfile'
+                required:
+                  - user
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      summary: Update user profile
+      description: Update current user profile settings
+      tags:
+        - User Profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                displayName:
+                  type: string
+                  maxLength: 50
+                  example: "John Doe"
+                timezone:
+                  type: string
+                  example: "America/New_York"
+                language:
+                  type: string
+                  pattern: '^[a-z]{2}$'
+                  example: "en"
+                theme:
+                  type: string
+                  enum: [light, dark, auto]
+                  example: "dark"
+                dashboardLayout:
+                  type: object
+                  example: {"widgets": [{"id": "1", "position": {"x": 0, "y": 0}}]}
+                notificationSettings:
+                  type: object
+                  example: {"emailNotifications": true, "pushNotifications": false}
+      responses:
+        '200':
+          description: Profile updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  profile:
+                    $ref: '#/components/schemas/UserProfile'
+                required:
+                  - success
+                  - profile
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /user/preferences:
+    get:
+      summary: Get user preferences
+      description: Retrieve user dashboard preferences
+      tags:
+        - User Preferences
+      responses:
+        '200':
+          description: Preferences retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  preferences:
+                    type: object
+                  theme:
+                    type: string
+                    enum: [light, dark, auto]
+                  dashboardLayout:
+                    type: object
+                required:
+                  - preferences
+                  - theme
+                  - dashboardLayout
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      summary: Update user preferences
+      description: Update user dashboard preferences
+      tags:
+        - User Preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                preferences:
+                  type: object
+                theme:
+                  type: string
+                  enum: [light, dark, auto]
+                dashboardLayout:
+                  type: object
+      responses:
+        '200':
+          description: Preferences updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  preferences:
+                    type: object
+                  updatedAt:
+                    type: string
+                    format: date-time
+                required:
+                  - success
+                  - preferences
+                  - updatedAt
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /user/sessions:
+    get:
+      summary: Get user sessions
+      description: Retrieve list of active user sessions
+      tags:
+        - Session Management
+      responses:
+        '200':
+          description: Sessions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserSession'
+                required:
+                  - sessions
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    delete:
+      summary: Revoke all sessions
+      description: Revoke all user sessions except the current one
+      tags:
+        - Session Management
+      responses:
+        '200':
+          description: Sessions revoked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  revokedCount:
+                    type: integer
+                    example: 3
+                  message:
+                    type: string
+                    example: "All other sessions revoked"
+                required:
+                  - success
+                  - revokedCount
+                  - message
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /user/sessions/{sessionId}:
+    delete:
+      summary: Revoke specific session
+      description: Revoke a specific user session
+      tags:
+        - Session Management
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Session ID to revoke
+      responses:
+        '200':
+          description: Session revoked successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Session revoked successfully"
+                required:
+                  - success
+                  - message
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    KindeAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Kinde authentication token
+
+  schemas:
+    UserBasic:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        profilePicture:
+          type: string
+          format: uri
+          nullable: true
+
+    User:
+      allOf:
+        - $ref: '#/components/schemas/UserBasic'
+        - type: object
+          properties:
+            kindeId:
+              type: string
+            lastLoginAt:
+              type: string
+              format: date-time
+              nullable: true
+            isActive:
+              type: boolean
+          required:
+            - kindeId
+            - isActive
+
+    UserProfile:
+      type: object
+      properties:
+        displayName:
+          type: string
+          maxLength: 50
+          nullable: true
+        timezone:
+          type: string
+          default: "UTC"
+        language:
+          type: string
+          pattern: '^[a-z]{2}$'
+          default: "en"
+        theme:
+          type: string
+          enum: [light, dark, auto]
+          default: "light"
+        dashboardLayout:
+          type: object
+          default: {}
+        notificationSettings:
+          type: object
+          default: {}
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - timezone
+        - language
+        - theme
+        - dashboardLayout
+        - notificationSettings
+        - updatedAt
+
+    UserSession:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userAgent:
+          type: string
+          nullable: true
+        ipAddress:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        lastActivityAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        isCurrent:
+          type: boolean
+      required:
+        - id
+        - createdAt
+        - lastActivityAt
+        - expiresAt
+        - isCurrent
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+          required:
+            - code
+            - message
+      required:
+        - error
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "BAD_REQUEST"
+              message: "Invalid request data"
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "AUTH_REQUIRED"
+              message: "Authentication required"
+
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "PERMISSION_DENIED"
+              message: "Insufficient permissions"
+
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "NOT_FOUND"
+              message: "Resource not found"
+
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "VALIDATION_ERROR"
+              message: "Request validation failed"
+              details:
+                field: "email"
+                reason: "Invalid email format"
+
+tags:
+  - name: Authentication
+    description: Authentication status and token management
+  - name: User Profile
+    description: User profile management operations
+  - name: User Preferences
+    description: User dashboard preferences
+  - name: Session Management
+    description: User session tracking and management

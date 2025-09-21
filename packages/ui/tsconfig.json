@@ -2,10 +2,15 @@
   "extends": "@dassh/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": "src",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false,
     "paths": {
       "@dassh/ui/*": ["./src/*"]
     }
   },
-  "include": ["."],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests/**/*"]
 }

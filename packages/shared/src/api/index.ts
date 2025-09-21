@@ -1,6 +1,7 @@
 import { baseProcedure } from './orpc';
 import { authProcedures } from './routers/auth';
 import { userProcedures } from './routers/user';
+import { healthProcedures } from './routers/health';
 
 /**
  * Main oRPC router that combines all feature procedures
@@ -8,6 +9,7 @@ import { userProcedures } from './routers/user';
 export const appRouter = baseProcedure.router({
   auth: authProcedures,
   user: userProcedures,
+  health: healthProcedures,
 });
 
 /**

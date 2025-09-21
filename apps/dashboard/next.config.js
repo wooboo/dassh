@@ -1,3 +1,10 @@
+import { config } from 'dotenv';
+import path from 'path';
+
+// Load environment variables from workspace root
+config({ path: path.resolve(process.cwd(), '../../.env') });
+config({ path: path.resolve(process.cwd(), '../../.env.local'), override: true });
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@dassh/ui", "@dassh/shared", "@dassh/widgets"],

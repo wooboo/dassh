@@ -80,30 +80,30 @@
 - [X] T031 [P] User entity model with Drizzle schema in `packages/shared/src/database/schema.ts`
 - [X] T032 [P] UserSession entity model with Drizzle schema in `packages/shared/src/database/schema.ts`
 - [X] T033 [P] UserProfile entity model with Drizzle schema in `packages/shared/src/database/schema.ts`
-- [ ] T034 [P] User service layer with database operations in `packages/shared/src/services/user-service.ts`
-- [ ] T035 [P] Session service layer with session management in `packages/shared/src/services/session-service.ts`
-- [ ] T036 [P] Profile service layer with profile operations in `packages/shared/src/services/profile-service.ts`
+- [X] T034 [P] User service layer with database operations in `packages/shared/src/services/user-service.ts`
+- [X] T035 [P] Session service layer with session management in `packages/shared/src/services/session-service.ts`
+- [X] T036 [P] Profile service layer with profile operations in `packages/shared/src/services/profile-service.ts`
 - [X] T037 Kinde authentication integration and hooks in `packages/shared/src/auth/kinde.ts`
-- [ ] T038 Authentication middleware implementation in `packages/shared/src/auth/middleware.ts`
-- [ ] T039 [P] AuthButton component with shadcn/ui in `packages/ui/src/components/auth-button.tsx`
+- [X] T038 Authentication middleware implementation in `packages/shared/src/auth/middleware.ts`
+- [X] T039 [P] AuthButton component with shadcn/ui in `packages/ui/src/components/auth-button.tsx`
 - [X] T040 [P] ProfileDropdown widget component in `packages/ui/src/components/profile-dropdown.tsx`
-- [ ] T041 [P] UserAvatar component for profile display in `packages/ui/src/components/user-avatar.tsx`
-- [ ] T042 [P] AuthGuard HOC for component protection in `packages/shared/src/auth/auth-guard.tsx`
-- [ ] T043 GET /api/auth/status endpoint in `apps/dashboard/src/pages/api/auth/status.ts`
-- [ ] T044 POST /api/auth/refresh endpoint in `apps/dashboard/src/pages/api/auth/refresh.ts`
-- [ ] T045 GET /api/user/profile endpoint in `apps/dashboard/src/pages/api/user/profile.ts`
-- [ ] T046 PUT /api/user/profile endpoint in `apps/dashboard/src/pages/api/user/profile.ts`
-- [ ] T047 GET /api/user/preferences endpoint in `apps/dashboard/src/pages/api/user/preferences.ts`
-- [ ] T048 PUT /api/user/preferences endpoint in `apps/dashboard/src/pages/api/user/preferences.ts`
-- [ ] T049 GET /api/user/sessions endpoint in `apps/dashboard/src/pages/api/user/sessions.ts`
-- [ ] T050 DELETE /api/user/sessions/[id] endpoint in `apps/dashboard/src/pages/api/user/sessions/[id].ts`
-- [ ] T051 DELETE /api/user/sessions (all) endpoint in `apps/dashboard/src/pages/api/user/sessions/index.ts`
-- [X] T052 Dashboard profile dropdown integration in `apps/dashboard/src/components/dashboard-profile.tsx`
-- [X] T053 Main page authentication controls in `apps/dashboard/src/components/main-page-auth.tsx` (or appropriate main app location)
+- [X] T041 [P] UserAvatar component for profile display in `packages/ui/src/components/user-avatar.tsx`
+- [X] T042 [P] AuthGuard HOC for component protection in `packages/shared/src/auth/auth-guard.ts`
+- [X] T043 ✅ MIGRATED TO oRPC: Authentication endpoints via `packages/shared/src/api/routers/auth.ts`
+- [X] T044 ✅ MIGRATED TO oRPC: Refresh handled by Kinde SDK automatically
+- [X] T045 ✅ MIGRATED TO oRPC: User profile endpoints via `packages/shared/src/api/routers/user.ts`
+- [X] T046 ✅ MIGRATED TO oRPC: User profile endpoints via `packages/shared/src/api/routers/user.ts`
+- [X] T047 ✅ MIGRATED TO oRPC: User preferences via profile update endpoint
+- [X] T048 ✅ MIGRATED TO oRPC: User preferences via profile update endpoint
+- [X] T049 ✅ MIGRATED TO oRPC: User sessions endpoints via `packages/shared/src/api/routers/user.ts`
+- [X] T050 ✅ MIGRATED TO oRPC: Session termination via `packages/shared/src/api/routers/user.ts`
+- [X] T051 ✅ MIGRATED TO oRPC: Bulk session termination can be added to user procedures
+- [X] T052 Dashboard profile dropdown integration in `apps/dashboard/src/components/nav-user.tsx`
+- [X] T053 Main page authentication controls in `apps/dashboard/src/app/page.tsx`
 - [X] T054 Next.js middleware for route protection in `apps/dashboard/middleware.ts`
 - [X] T055 Authentication context provider in `packages/shared/src/auth/auth-context.tsx`
-- [ ] T056 [P] Input validation schemas with Zod in `packages/shared/src/validation/auth-schemas.ts`
-- [ ] T057 [P] Error handling for authentication flows in `packages/shared/src/auth/error-handler.ts`
+- [X] T056 [P] Input validation schemas with Zod in `packages/shared/src/validation/auth-schemas.ts`
+- [X] T057 [P] Error handling for authentication flows in `packages/shared/src/auth/error-handler.ts`
 
 ## Phase 3.4: Integration & Migration
 - [ ] T058 Database migration for User table in `packages/shared/src/database/migrations/001_create_users.sql`

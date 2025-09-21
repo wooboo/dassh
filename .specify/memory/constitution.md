@@ -1,41 +1,33 @@
 <!--
-SYNC IMPACT REPORT - Constitution Amendment v2.7.0
+SYNC IMPACT REPORT - Constitution Amendment v2.8.0
 
-VERSION CHANGE: 2.6.0 → 2.7.0 (MINOR version bump)
-RATIONALE: Replaced tRPC with oRPC for type-safe backend communication - modernized technical stack with improved OpenAPI compliance and better Next.js integration
+VERSION CHANGE: 2.7.0 → 2.8.0 (MINOR version bump)
+RATIONALE: Refined TDD requirements to focus on business logic and complex logic while reducing infrastructure testing overhead. Updated development workflow to acknowledge VS Code terminal limitations and need for user-driven testing of web applications.
 
 MODIFIED PRINCIPLES:
 - No core principles changed
 
 MODIFIED SECTIONS:
-- Technology Stack Requirements: Updated API Communication from tRPC to oRPC
-- Integration Requirements: Replaced tRPC routers with oRPC procedures and handlers
-- API Development Standards: Updated from tRPC patterns to oRPC patterns with enhanced OpenAPI support
-- Test-Driven Development: Updated testing requirements from tRPC to oRPC
-- Code Quality Gates: Updated validation requirements from tRPC to oRPC
-- Review Process: Updated review requirements from tRPC to oRPC
-- Amendment Process: Updated backward compatibility requirements from tRPC to oRPC
-- Compliance Verification: Updated validation requirements from tRPC to oRPC
+- Test-Driven Development: Scoped TDD to business rules and complex logic rather than comprehensive infrastructure testing
+- Development Standards: Added acknowledgment of VS Code terminal limitations and user-driven testing requirements
+- Code Quality Gates: Adjusted testing requirements to focus on critical logic validation
 
 ADDED SECTIONS:
-- oRPC in Technology Stack Requirements:
-  * End-to-end type-safe APIs with OpenAPI standards compliance
-  * Seamless integration with frontend and backend technologies
-  * Enhanced developer experience with auto-completion and type validation
-  * Native Next.js App Router support and optimized SSR
+- Development Environment Constraints: Acknowledged VS Code terminal limitations requiring user-driven application testing
+- Selective TDD Application: Defined specific contexts where TDD is required vs recommended vs optional
 
 REMOVED SECTIONS:
-- tRPC references throughout the constitution
+- None - refinement of existing sections
 
 TEMPLATES REQUIRING UPDATES:
-⚠ plan-template.md - Needs oRPC in technical context and dependency analysis
-⚠ tasks-template.md - Needs oRPC setup and router creation tasks
-⚠ .github/copilot-instructions.md - Needs oRPC development patterns and examples
+⚠ plan-template.md - Needs updated TDD approach focusing on business logic
+⚠ tasks-template.md - Needs refined testing categorization (required vs recommended)
+⚠ .github/copilot-instructions.md - Needs updated testing guidance for business logic focus
 
 FOLLOW-UP TODOS:
-- Update templates to include oRPC setup and usage patterns
-- Add oRPC configuration examples to development documentation
-- Update any existing tRPC implementations to oRPC patterns
+- Update task templates to categorize TDD by complexity and business criticality
+- Add guidance for user-driven testing workflows in VS Code environment
+- Update development patterns to emphasize business logic validation over infrastructure testing
 -->
 
 # Dassh Project Constitution
@@ -91,6 +83,8 @@ The application must be visually appealing and maintain consistent design langua
 ## Development Standards
 <!-- Quality gates and development workflow requirements -->
 
+**Development Environment Constraints**: The application is a web-based dashboard requiring user interaction for complete testing. VS Code terminal limitations require coordination between agent and user for application startup, testing, and multiple terminal operations. When development requires running the application, agents must request user assistance. Terminal operations requiring background processes (like `pnpm dev`) must be handled by the user or require additional terminal instances.
+
 **Monorepo Architecture**: The project MUST be organized as a monorepo using Turborepo for workspace orchestration and pnpm for package management. Each package within the monorepo must have clear boundaries, defined dependencies, and independent testing capabilities. Shared libraries and utilities must be properly versioned and documented.
 
 **Package Management Standards**: All packages must be managed through pnpm workspaces with proper dependency hoisting and version consistency. Build artifacts must be cached using Turborepo's distributed caching system. Cross-package dependencies must be explicitly declared and version-pinned for stability.
@@ -101,7 +95,23 @@ The application must be visually appealing and maintain consistent design langua
 
 **Rapid Prototyping Standards**: When using v0 for UI development, generated components MUST be treated as initial prototypes requiring refinement. All v0 output must be manually reviewed for constitutional compliance before integration. Components must be refactored to use proper shadcn/ui patterns, accessibility features, and responsive design principles. Generated code must be optimized for performance and security before production deployment.
 
-**Test-Driven Development**: All new widgets and features must follow TDD principles. Tests are written first, must fail initially, then implementation makes them pass. Widget contract tests, accessibility tests, responsive design tests, template validation tests, oRPC API tests, and database integration tests are mandatory. Database tests must use isolated test databases with proper cleanup. Widget templates must include test scenarios for webhook data mapping and placeholder resolution. oRPC procedures must include type safety tests, input validation tests, error handling tests, and OpenAPI schema validation tests. Tests must be runnable at both package and workspace levels.
+**Selective Test-Driven Development**: TDD is applied selectively based on code complexity and business criticality rather than universally across all development.
+
+**TDD REQUIRED for**:
+- **Business Logic**: User authentication flows, data validation rules, widget template processing, webhook data mapping, payment/billing logic, user permission systems
+- **Complex Algorithms**: Data transformation pipelines, real-time aggregation logic, security encryption/decryption, performance-critical calculations
+- **Integration Points**: External API integrations, database transaction logic, authentication middleware, webhook processing endpoints
+
+**TDD RECOMMENDED for**:
+- **Core Services**: Database service layers, API route handlers, utility functions with multiple use cases
+- **Widget Components**: Custom widget business logic, data binding validation, template rendering logic
+
+**TDD OPTIONAL for**:
+- **Infrastructure Setup**: Environment configuration, build scripts, development tooling, basic CRUD operations
+- **Simple UI Components**: Static components, basic form layouts, styling implementations
+- **Configuration Files**: TypeScript configs, ESLint rules, package.json setup
+
+All TDD implementations must include widget contract tests, accessibility validation, oRPC type safety verification, and database integration validation. Tests must be executable independently and provide clear failure messages for debugging.
 
 **Code Quality Gates**: All code must pass ESLint/TSLint checks, accessibility audits (axe-core), responsive design validation across device breakpoints, oRPC type safety validation, and security scanning. Widget APIs and template schemas must be documented with OpenAPI specifications automatically generated by oRPC. oRPC router schemas must be validated for proper input/output types, error handling, and OpenAPI compliance. Database schemas must be validated for proper relationships, constraints, and indexing. Widget templates must be validated for security (no code injection), performance (efficient data mapping), and usability (clear placeholder syntax). AI-generated code from v0 must pass the same quality gates as manually written code with additional review for optimization and standards compliance. Monorepo builds must maintain sub-second change detection and efficient rebuilds.
 
@@ -115,4 +125,4 @@ Constitution supersedes all other development practices and guidelines. Any devi
 
 **Compliance Verification**: All pull requests must verify compliance with accessibility standards, responsive design requirements, security guidelines, widget architecture principles, template system standards, oRPC type safety requirements, database development standards, and rapid prototyping quality standards. Database changes must pass migration validation and schema integrity checks. AI-generated components must pass constitutional compliance review and refinement verification. Widget templates must pass security validation, placeholder syntax verification, and webhook integration testing. oRPC procedures must pass type safety validation, error handling verification, OpenAPI schema validation, and authentication integration testing. Use project documentation and development guides for detailed implementation guidance.
 
-**Version**: 2.7.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-21
+**Version**: 2.8.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-21

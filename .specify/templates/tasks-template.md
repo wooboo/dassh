@@ -57,21 +57,39 @@
 - [ ] T013 [P] Configure WebSocket infrastructure in packages/shared/websocket/
 - [ ] T014 [P] Setup shared TypeScript configuration in tools/tsconfig/
 
-## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
-**CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T015 [P] Contract test oRPC procedure handlers in packages/shared/tests/api/test_orpc_procedures.ts
-- [ ] T016 [P] Contract test POST /api/users in apps/dashboard/tests/contract/test_users_post.ts
-- [ ] T017 [P] Contract test GET /api/users/{id} in apps/dashboard/tests/contract/test_users_get.ts
-- [ ] T018 [P] Database integration test user CRUD operations in packages/shared/tests/database/test_user_crud.ts
-- [ ] T019 [P] Database migration test schema versioning in packages/shared/tests/database/test_migrations.ts
-- [ ] T020 [P] v0 component validation test constitutional compliance in packages/ui/tests/v0/test_component_compliance.ts
-- [ ] T021 [P] Integration test user registration in apps/dashboard/tests/integration/test_registration.ts
-- [ ] T022 [P] Integration test Kinde auth flow in packages/shared/tests/auth/test_auth.ts
-- [ ] T023 [P] Accessibility test WCAG 2.1 AA compliance in packages/ui/tests/accessibility/test_wcag.ts
-- [ ] T024 [P] Responsive design test cross-device validation in packages/ui/tests/responsive/test_breakpoints.ts
-- [ ] T025 [P] Widget architecture test webhook interfaces in packages/widgets/tests/test_webhook_contract.ts
-- [ ] T026 [P] WebSocket communication test real-time updates in packages/shared/tests/websocket/test_realtime.ts
-- [ ] T027 [P] Monorepo build test Turborepo pipeline validation in tests/integration/test_build_pipeline.ts
+## Phase 3.2: Selective Test-Driven Development ⚠️ APPLY BY CODE COMPLEXITY
+**CONSTITUTIONAL REQUIREMENT: TDD is applied selectively based on business criticality and complexity**
+
+### TDD REQUIRED (Business Logic & Complex Features) ⚠️ WRITE TESTS FIRST
+- [ ] T015 [P] Contract test user authentication flows in packages/shared/tests/auth/test_auth_flows.ts
+- [ ] T016 [P] Contract test widget template processing in packages/widgets/tests/test_template_processing.ts
+- [ ] T017 [P] Contract test webhook data mapping logic in packages/widgets/tests/test_webhook_mapping.ts
+- [ ] T018 [P] Contract test complex data transformations in packages/shared/tests/api/test_data_transforms.ts
+- [ ] T019 [P] Contract test payment/billing logic (if applicable) in packages/shared/tests/billing/test_payment_flows.ts
+- [ ] T020 [P] Contract test security middleware and permissions in packages/shared/tests/auth/test_security_middleware.ts
+- [ ] T021 [P] Contract test external integration endpoints in packages/shared/tests/integrations/test_external_apis.ts
+- [ ] T022 [P] Integration test business rule validation in apps/dashboard/tests/integration/test_business_rules.ts
+
+### TDD RECOMMENDED (Core Services) - Write tests with implementation
+- [ ] T023 [P] Database service layer tests with Drizzle queries in packages/shared/tests/database/test_database_service.ts
+- [ ] T024 [P] oRPC API route handler tests with validation in packages/shared/tests/api/test_orpc_handlers.ts
+- [ ] T025 [P] Utility function tests with multiple use cases in packages/shared/tests/utils/test_utility_functions.ts
+- [ ] T026 [P] Widget component business logic tests in packages/widgets/tests/test_widget_logic.ts
+- [ ] T027 [P] Database migration and schema validation tests in packages/shared/tests/database/test_migrations.ts
+
+### Testing OPTIONAL (Infrastructure & Simple Components) - Test after implementation if time permits
+- [ ] T028 [P] Environment configuration validation in tests/config/test_environment.ts
+- [ ] T029 [P] Basic CRUD operation tests in packages/shared/tests/database/test_basic_crud.ts
+- [ ] T030 [P] Static UI component tests in packages/ui/tests/components/test_static_components.ts
+- [ ] T031 [P] Build system and pipeline tests in tests/integration/test_build_system.ts
+- [ ] T032 [P] Styling and CSS component tests in packages/ui/tests/styles/test_styling.ts
+
+### Quality Gates for All Code (MANDATORY regardless of TDD level)
+- [ ] T033 [P] Accessibility test WCAG 2.1 AA compliance in packages/ui/tests/accessibility/test_wcag.ts
+- [ ] T034 [P] Responsive design test cross-device validation in packages/ui/tests/responsive/test_breakpoints.ts
+- [ ] T035 [P] oRPC type safety validation in packages/shared/tests/api/test_type_safety.ts
+- [ ] T036 [P] Widget architecture test webhook interfaces in packages/widgets/tests/test_webhook_contract.ts
+- [ ] T037 [P] Database integration test with connection pooling in packages/shared/tests/database/test_integration.ts
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 - [ ] T028 [P] Database schema definition with Drizzle ORM in packages/shared/src/database/schema.ts

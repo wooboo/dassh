@@ -31,7 +31,7 @@
 - Phase 3-4: Implementation execution (manual or via tools)
 
 ## Summary
-Primary requirement: Implement user authentication system with Kinde integration featuring dual profile dropdowns (dashboard bottom-left, main page top-right), sign-in/sign-up flows, route protection, and session management. Technical approach: Next.js frontend with shadcn/ui components, Kinde authentication service, PostgreSQL database with Drizzle ORM, and WebSocket real-time communication within monorepo architecture.
+Primary requirement: Implement user authentication system with Kinde integration featuring dual profile dropdowns (dashboard bottom-left, main page top-right), sign-in/sign-up flows, route protection, and session management. Technical approach: Next.js frontend with shadcn/ui components, oRPC for type-safe API communication, Kinde authentication service, PostgreSQL database with Drizzle ORM, and WebSocket real-time communication within monorepo architecture. Development workflow acknowledges VS Code terminal limitations requiring user coordination for web application testing.
 
 ## Technical Context
 **Language/Version**: TypeScript 5.0+, Node.js 18+  
@@ -39,18 +39,19 @@ Primary requirement: Implement user authentication system with Kinde integration
 **Monorepo Management**: Turborepo (CONSTITUTIONAL REQUIREMENT)  
 **Frontend Framework**: Next.js (CONSTITUTIONAL REQUIREMENT)  
 **Component Library**: shadcn/ui (CONSTITUTIONAL REQUIREMENT)  
+**API Communication**: oRPC (CONSTITUTIONAL REQUIREMENT for type-safe backend communication with OpenAPI compliance)  
 **Rapid Development**: v0 for UI prototyping (CONSTITUTIONAL ALLOWANCE - requires quality refinement)  
 **Authentication**: Kinde (CONSTITUTIONAL REQUIREMENT)  
 **Database**: PostgreSQL (CONSTITUTIONAL REQUIREMENT)  
 **ORM**: Drizzle ORM (CONSTITUTIONAL REQUIREMENT)  
 **Real-time Communication**: WebSocket implementation (CONSTITUTIONAL REQUIREMENT)  
-**Primary Dependencies**: React 18+, Tailwind CSS, @kinde-oss/kinde-auth-nextjs, ws (WebSocket)  
+**Primary Dependencies**: React 18+, Tailwind CSS, @kinde-oss/kinde-auth-nextjs, @orpc/server, @orpc/client, ws (WebSocket)  
 **Storage**: PostgreSQL with Drizzle ORM (CONSTITUTIONAL REQUIREMENT)  
 **Testing**: Jest for unit tests, Playwright for E2E, axe-core for accessibility  
 **Target Platform**: Modern browsers (Chrome 100+, Firefox 100+, Safari 15+, Edge 100+)
 **Project Type**: monorepo - determines source structure  
 **Performance Goals**: <3s load time, 60fps rendering, <50ms WebSocket latency, <100ms database queries  
-**Constraints**: <100ms authentication response, WCAG 2.1 AA compliance, mobile-first design  
+**Constraints**: <100ms authentication response, WCAG 2.1 AA compliance, mobile-first design, VS Code terminal limitations for testing workflows  
 **Scale/Scope**: Multi-user authentication system, dashboard integration, main page integration
 
 ## Constitution Check
@@ -103,6 +104,7 @@ packages/
 ├── ui/                 # Shared shadcn/ui components
 ├── shared/             # Shared auth utilities and types
 │   ├── auth/           # Kinde integration, middleware, types
+│   ├── api/            # oRPC procedures and routers
 │   ├── database/       # User schema, migrations
 │   └── validation/     # Auth form validation
 ├── widgets/            # Reusable auth widget library
@@ -144,9 +146,9 @@ tools/
 
 **API Contracts Required**:
 1. Authentication endpoints (handled by Kinde)
-2. User profile endpoints
-3. Session management endpoints
-4. Route protection middleware
+2. User profile oRPC procedures with type-safe validation
+3. Session management oRPC procedures with proper error handling
+4. Route protection middleware with Next.js integration
 
 **Test Scenarios from User Stories**:
 1. Unauthenticated main page visit → sign-in/sign-up display
@@ -163,8 +165,12 @@ tools/
 *This section describes what the /tasks command will do - DO NOT execute during /plan*
 
 **Task Generation Strategy**:
+- **TDD REQUIRED (Business Logic)**: User authentication flows, security middleware, Kinde integration logic, route protection rules, session management business logic
+- **TDD RECOMMENDED (Core Services)**: Database user services, authentication API handlers, profile data management, session persistence utilities
+- **TDD OPTIONAL (Infrastructure)**: Environment configuration, basic CRUD for user profiles, static component styling, build setup
+- **Quality Gates (ALL Code)**: Accessibility testing for auth components, responsive design validation, oRPC type safety, database integration validation
 - Authentication middleware setup and configuration
-- User schema creation with Drizzle migrations
+- User schema creation with Drizzle migrations  
 - Profile dropdown widget development (dashboard and main page)
 - Route protection implementation
 - Authentication form components
@@ -173,11 +179,12 @@ tools/
 - Accessibility testing for auth components
 
 **Ordering Strategy**:
-- TDD order: Auth tests before implementation
-- Dependency order: Schema → Services → Middleware → Components → Integration
-- Parallel tasks marked [P] for independent development
+- **Selective TDD order**: Business logic tests first, infrastructure tests optional
+- **Dependency order**: Schema → Services → Middleware → Components → Integration
+- **Parallel tasks** marked [P] for independent development
+- **Development Environment**: Acknowledge VS Code terminal limitations requiring user-driven application testing
 
-**Estimated Output**: 20-25 numbered, ordered tasks in tasks.md
+**Estimated Output**: 25-30 numbered, ordered tasks in tasks.md with TDD categorization by complexity
 
 **IMPORTANT**: This phase is executed by the /tasks command, NOT by /plan
 
@@ -213,4 +220,4 @@ tools/
 - [x] Complexity deviations documented
 
 ---
-*Based on Constitution v2.5.0 - See `.specify/memory/constitution.md`*
+*Based on Constitution v2.8.0 - See `.specify/memory/constitution.md`*

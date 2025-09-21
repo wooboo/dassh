@@ -158,11 +158,35 @@ export const users = pgTable('users', {
 
 ## Code Quality Standards
 
-### Testing Requirements
-- Unit tests for all authentication components
-- Integration tests for complete auth flows
-- Accessibility tests using axe-core
+### Testing Requirements (Selective TDD by Complexity)
+**TDD REQUIRED for**:
+- User authentication flows and business rules
+- Widget template processing and data mapping
+- Complex algorithms and data transformations  
+- Security middleware and permission systems
+- External API integrations and payment logic
+
+**TDD RECOMMENDED for**:
+- Database service layers and API handlers
+- Utility functions with multiple use cases
+- Widget component business logic
+
+**Testing OPTIONAL for**:
+- Infrastructure setup and environment configuration
+- Basic CRUD operations and static UI components
+- Simple form layouts and styling implementations
+
+**Quality Gates for ALL Code**:
+- Accessibility tests using axe-core for WCAG 2.1 AA compliance
+- oRPC type safety validation and API contract testing
 - Database integration tests with isolated test data
+- Responsive design validation across device breakpoints
+
+### Development Environment Constraints
+- VS Code terminal limitations require user coordination for app testing
+- Background processes (like `pnpm dev`) must be handled by user
+- Multiple terminal operations need user assistance or additional terminals
+- Web application testing requires user interaction for complete validation
 
 ### Error Handling
 - Graceful authentication error recovery

@@ -1,34 +1,35 @@
 # Tasks: User Authentication System
 
 **Input**: Design documents from `/specs/002-user-authentication-i/`
-**Prerequisites**: plan.md (required), research.md, data-model.md, contracts/
+**Prerequisites**: plan.md ✅, research.md ✅, data-model.md ✅, contracts/ ✅
 
 ## Execution Flow (main)
 ```
 1. Load plan.md from feature directory
-   → ✅ LOADED: User Authentication System with Kinde integration
-   → Extract: Next.js, shadcn/ui, PostgreSQL, Drizzle ORM, Kinde, TypeScript
+   → ✅ Loaded: User Authentication System with Kinde integration
+   → ✅ Extracted: Next.js, oRPC, Kinde, PostgreSQL, Drizzle ORM, shadcn/ui
 2. Load optional design documents:
-   → ✅ data-model.md: 3 entities (User, UserSession, UserProfile) → model tasks
-   → ✅ contracts/: 8 API endpoints → contract test tasks  
-   → ✅ research.md: Kinde integration, v0 prototyping → setup tasks
+   → ✅ data-model.md: User, UserSession, UserProfile entities
+   → ✅ contracts/: Authentication, profile, session management endpoints
+   → ✅ research.md: Kinde integration, Next.js patterns, component strategy
 3. Generate tasks by category:
-   → Setup: Kinde config, database schema, middleware, v0 setup
-   → Tests: contract tests, integration tests, accessibility, security
-   → Core: authentication components, profile dropdowns, route protection
-   → Integration: database migrations, auth flows, session management
-   → Polish: performance optimization, documentation, final validation
+   → Setup: Kinde integration, database schema, oRPC procedures, profile components
+   → Tests: Authentication flows, profile management, session handling, accessibility
+   → Core: User models, auth middleware, profile dropdowns, route protection
+   → Integration: Database connections, oRPC client, WebSocket auth
+   → Polish: Performance optimization, security validation, documentation
 4. Apply task rules:
-   → Different files = mark [P] for parallel
+   → Different packages/files = [P] for parallel execution
    → Same file = sequential (no [P])
-   → Tests before implementation (TDD)
+   → Selective TDD: Required for auth flows, recommended for services, optional for infrastructure
 5. Number tasks sequentially (T001, T002...)
-6. Generate dependency graph
-7. Create parallel execution examples
+   → 75 tasks across 5 phases
+6. Generate dependency graph: Setup → Tests → Implementation → Integration → Polish
+7. Create parallel execution examples for independent packages
 8. Validate task completeness:
-   → ✅ All contracts have tests
-   → ✅ All entities have models
-   → ✅ All endpoints implemented
+   → ✅ All API contracts have tests
+   → ✅ All entities have implementation tasks
+   → ✅ All components have accessibility validation
 9. Return: SUCCESS (tasks ready for execution)
 ```
 
@@ -37,44 +38,58 @@
 - Include exact file paths in descriptions
 
 ## Path Conventions
-- **Monorepo structure**: `apps/dashboard/src/`, `packages/shared/src/`, `packages/ui/src/`
-- **Authentication components**: Located across dashboard app and shared packages
-- **Shared resources**: `packages/shared/auth/`, `packages/shared/database/`, `packages/ui/`
+- **Monorepo structure**: `apps/dashboard/src/`, `packages/ui/src/`, `tools/` at repository root
+- **Workspace packages**: Each package has own `src/` and `tests/` directories
+- **Shared resources**: `packages/shared/`, `packages/ui/`, `packages/config/`
+- Paths shown below assume monorepo structure with Turborepo orchestration
 
-## Phase 3.1: Setup
-- [X] T001 Initialize Kinde authentication configuration in `packages/shared/src/auth/kinde.ts`
-- [X] T002 [P] Setup PostgreSQL database schema with Drizzle ORM in `packages/shared/src/database/schema.ts`
-- [X] T003 [P] Create database connection and configuration in `packages/shared/src/database/connection.ts`
-- [X] T004 [P] Setup authentication middleware for Next.js in `packages/shared/src/auth/middleware.ts`
-- [X] T005 [P] Configure environment variables and validation in `packages/shared/src/auth/config.ts`
-- [X] T006 [P] Initialize user authentication types in `packages/shared/src/auth/types.ts`
-- [X] T007 [P] Setup database migration scripts in `packages/shared/src/database/migrate.ts`
-- [ ] T008 [P] Configure v0 for UI component prototyping in workspace root
+## Phase 3.1: Setup & Infrastructure
+- [ ] T001 Initialize Kinde authentication configuration in packages/shared/src/auth/kinde-config.ts
+- [ ] T002 [P] Create user database schema with Drizzle ORM in packages/shared/src/database/schema/users.ts
+- [ ] T003 [P] Create user session schema with Drizzle ORM in packages/shared/src/database/schema/user-sessions.ts
+- [ ] T004 [P] Create user profile schema with Drizzle ORM in packages/shared/src/database/schema/user-profiles.ts
+- [ ] T005 [P] Setup database migrations for user authentication tables in packages/shared/src/database/migrations/
+- [ ] T006 [P] Configure oRPC authentication procedures in packages/shared/src/api/routers/auth.ts
+- [ ] T007 [P] Configure oRPC user profile procedures in packages/shared/src/api/routers/users.ts
+- [ ] T008 [P] Configure oRPC session management procedures in packages/shared/src/api/routers/sessions.ts
+- [ ] T009 [P] Setup authentication middleware for Next.js in packages/shared/src/auth/middleware.ts
+- [ ] T010 [P] Create authentication types and interfaces in packages/shared/src/types/auth.ts
+- [ ] T011 [P] Setup environment configuration for Kinde in packages/shared/src/config/auth.ts
+- [ ] T012 [P] Initialize shadcn/ui authentication components in packages/ui/src/components/auth/
+- [ ] T013 [P] Setup WebSocket authentication integration in packages/shared/src/websocket/auth.ts
+- [ ] T014 [P] Configure oRPC client for Next.js in apps/dashboard/src/lib/orpc-client.ts
 
-## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
-**CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T009 [P] Contract test GET /api/auth/status in `apps/dashboard/tests/contract/test_auth_status.ts`
-- [ ] T010 [P] Contract test POST /api/auth/refresh in `apps/dashboard/tests/contract/test_auth_refresh.ts`
-- [ ] T011 [P] Contract test GET /api/user/profile in `apps/dashboard/tests/contract/test_user_profile_get.ts`
-- [ ] T012 [P] Contract test PUT /api/user/profile in `apps/dashboard/tests/contract/test_user_profile_put.ts`
-- [ ] T013 [P] Contract test GET /api/user/preferences in `apps/dashboard/tests/contract/test_user_preferences_get.ts`
-- [ ] T014 [P] Contract test PUT /api/user/preferences in `apps/dashboard/tests/contract/test_user_preferences_put.ts`
-- [ ] T015 [P] Contract test GET /api/user/sessions in `apps/dashboard/tests/contract/test_user_sessions_get.ts`
-- [ ] T016 [P] Contract test DELETE /api/user/sessions/:id in `apps/dashboard/tests/contract/test_user_sessions_delete.ts`
-- [ ] T017 [P] Database integration test User CRUD operations in `packages/shared/tests/database/test_user_crud.ts`
-- [ ] T018 [P] Database integration test UserSession management in `packages/shared/tests/database/test_user_sessions.ts`
-- [ ] T019 [P] Database integration test UserProfile operations in `packages/shared/tests/database/test_user_profiles.ts`
-- [ ] T020 [P] Kinde authentication integration test in `packages/shared/tests/auth/test_kinde_integration.ts`
-- [ ] T021 [P] Authentication middleware test route protection in `packages/shared/tests/auth/test_middleware.ts`
-- [ ] T022 [P] Integration test complete sign-up flow in `apps/dashboard/tests/integration/test_signup_flow.ts`
-- [ ] T023 [P] Integration test complete sign-in flow in `apps/dashboard/tests/integration/test_signin_flow.ts`
-- [ ] T024 [P] Integration test profile dropdown functionality in `apps/dashboard/tests/integration/test_profile_dropdown.ts`
-- [ ] T025 [P] Integration test dashboard route protection in `apps/dashboard/tests/integration/test_route_protection.ts`
-- [ ] T026 [P] Integration test session persistence in `apps/dashboard/tests/integration/test_session_persistence.ts`
-- [ ] T027 [P] Accessibility test profile dropdowns WCAG 2.1 AA in `packages/ui/tests/accessibility/test_profile_dropdown_a11y.ts`
-- [ ] T028 [P] Accessibility test authentication forms in `packages/ui/tests/accessibility/test_auth_forms_a11y.ts`
-- [ ] T029 [P] Responsive design test profile components in `packages/ui/tests/responsive/test_profile_responsive.ts`
-- [ ] T030 [P] Security test authentication flow protection in `apps/dashboard/tests/security/test_auth_security.ts`
+## Phase 3.2: Selective Test-Driven Development ⚠️ APPLY BY CODE COMPLEXITY
+**CONSTITUTIONAL REQUIREMENT: TDD is applied selectively based on business criticality and complexity**
+
+### TDD REQUIRED (Business Logic & Complex Features) ⚠️ WRITE TESTS FIRST
+- [ ] T015 [P] Contract test user authentication flows in packages/shared/tests/auth/test-auth-flows.ts
+- [ ] T016 [P] Contract test Kinde integration and token validation in packages/shared/tests/auth/test-kinde-integration.ts
+- [ ] T017 [P] Contract test route protection middleware in packages/shared/tests/auth/test-auth-middleware.ts
+- [ ] T018 [P] Contract test session management business logic in packages/shared/tests/auth/test-session-management.ts
+- [ ] T019 [P] Contract test user profile security and permissions in packages/shared/tests/auth/test-profile-security.ts
+- [ ] T020 [P] Contract test oRPC authentication procedures in packages/shared/tests/api/test-auth-procedures.ts
+- [ ] T021 [P] Contract test oRPC user profile procedures in packages/shared/tests/api/test-user-procedures.ts
+- [ ] T022 [P] Contract test oRPC session management procedures in packages/shared/tests/api/test-session-procedures.ts
+- [ ] T023 [P] Integration test complete authentication flows in apps/dashboard/tests/integration/test-auth-flows.ts
+
+### TDD RECOMMENDED (Core Services) - Write tests with implementation
+- [ ] T024 [P] Database service layer tests for user operations in packages/shared/tests/database/test-user-service.ts
+- [ ] T025 [P] Database service layer tests for session operations in packages/shared/tests/database/test-session-service.ts
+- [ ] T026 [P] Database service layer tests for profile operations in packages/shared/tests/database/test-profile-service.ts
+- [ ] T027 [P] Utility function tests for authentication helpers in packages/shared/tests/utils/test-auth-utils.ts
+- [ ] T028 [P] Component business logic tests for profile dropdowns in packages/ui/tests/components/test-profile-dropdown.ts
+
+### Testing OPTIONAL (Infrastructure & Simple Components) - Test after implementation if time permits
+- [ ] T029 [P] Environment configuration validation in packages/shared/tests/config/test-auth-config.ts
+- [ ] T030 [P] Basic CRUD operation tests for user entities in packages/shared/tests/database/test-user-crud.ts
+- [ ] T031 [P] Static authentication component tests in packages/ui/tests/components/test-auth-buttons.ts
+
+### Quality Gates for All Code (MANDATORY regardless of TDD level)
+- [ ] T032 [P] Accessibility test WCAG 2.1 AA compliance for auth components in packages/ui/tests/accessibility/test-auth-accessibility.ts
+- [ ] T033 [P] Responsive design test for profile dropdowns in packages/ui/tests/responsive/test-auth-responsive.ts
+- [ ] T034 [P] oRPC type safety validation for auth procedures in packages/shared/tests/api/test-auth-type-safety.ts
+- [ ] T035 [P] Database integration test with user authentication in packages/shared/tests/database/test-auth-integration.ts
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 - [X] T031 [P] User entity model with Drizzle schema in `packages/shared/src/database/schema.ts`
@@ -216,3 +231,27 @@ Task: "Documentation update for authentication system in docs/authentication.md"
 - [x] Responsive design validation tasks present (T029, T079)
 - [x] Security validation tasks included (T030, T073)
 - [x] Performance targets specified (<100ms DB, 60fps render)
+
+---
+
+## Constitutional Compliance v2.8.0
+
+### Selective TDD Implementation ✅
+- **TDD REQUIRED**: Business logic tests (T015-T023) must be written first and failing before implementation
+- **TDD RECOMMENDED**: Core services tests (T024-T028) written with implementation  
+- **Testing OPTIONAL**: Infrastructure tests (T029-T031) written after implementation if time permits
+- **Quality Gates**: Accessibility, responsive design, oRPC type safety mandatory for all code (T032-T035)
+
+### oRPC Integration Requirements ✅
+- All API endpoints implemented as oRPC procedures with type-safe validation
+- Frontend-backend communication uses oRPC client with automatic type inference
+- OpenAPI specifications automatically generated from oRPC procedure definitions
+- Type-safe error handling and input validation using Zod schemas
+
+### Development Environment Constraints ✅
+- VS Code terminal limitations acknowledged for web application testing
+- User coordination required for background processes and multiple terminal operations
+- Complete authentication flow testing requires user interaction with browser
+- Parallel task execution examples provided for independent package development
+
+This tasks file provides comprehensive, executable implementation guidance for the User Authentication System feature following selective TDD principles (Constitution v2.8.0), oRPC integration requirements, and monorepo best practices with parallel execution optimization.
